@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardview_layout"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardPreventCornerOverlap="false"
+        android:layout_marginTop="5dp"
+        >
+
+        <FrameLayout
+            android:background="@drawable/card_edge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TableLayout
+            android:id="@+id/cardview_uppertable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            >
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/text_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="질문 1."
+                    android:textColor="#000000"
+                    android:paddingLeft="5dp"
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.5" />
+
+                <ImageView
+                    android:id="@+id/img_question_section"
+                    android:layout_height="30dp"
+                    android:layout_width="0dp"
+                    android:scaleType="centerInside"
+                    android:layout_weight="2.5"
+                    android:src="@drawable/smallmuscle_icon"
+                    android:paddingTop="2dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/cameraImg"
+                    android:layout_height="30dp"
+                    android:layout_width="0dp"
+                    android:scaleType="centerInside"
+                    android:layout_weight="2.5"
+                    android:src="@drawable/camera_on"
+                    android:paddingTop="2dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/conflictImg"
+                    android:layout_height="30dp"
+                    android:layout_width="0dp"
+                    android:scaleType="centerInside"
+                    android:layout_weight="2.5"
+                    android:src="@drawable/discussion"
+                    android:paddingTop="2dp"
+                    />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_question"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:textIsSelectable="true"
+                    android:text="Q. 예제질문."
+                    />
+
+            </TableRow>
+
+            <TableRow
+                android:visibility="gone"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/camera_upload"
+                    android:layout_height="35dp"
+                    android:layout_width="0dp"
+                    android:scaleType="centerInside"
+                    android:layout_weight="3.3"
+                    android:src="@drawable/camera_upload"
+                    android:padding="5dp"
+                    />
+
+                <CheckBox
+                    android:id="@+id/spouse_checkbox"
+                    android:layout_height="35dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="3.3"
+                    android:text="아빠에게 묻기"
+                    android:textSize="10dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:visibility="invisible"
+                    />
+                <CheckBox
+                    android:id="@+id/teacher_checkbox"
+                    android:layout_height="35dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="3.3"
+                    android:text="선생님께 묻기"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:visibility="invisible"
+                    />
+            </TableRow>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="#a9a9a9" />
+
+            <LinearLayout
+                android:id="@+id/card_hide_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#aeaeae">
+                <TextView
+                    android:id="@+id/hidden_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="다른 보호자의 의견은 모든문제 풀이 후 확인가능 합니다."
+                    android:layout_margin="10dp"
+                    />
+            </LinearLayout>
+
+
+            <TableRow
+                android:id="@+id/teacher_tablerow"
+                android:layout_height="wrap_content"
+                android:background="#dfdfdf"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <RadioGroup
+                    android:id="@+id/teacher_radiogroup"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8.5"
+                    android:layout_width="0dp">
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="center"
+                        android:text="조언자"/>
+
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/teacher_radio1"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/teacher_radio2"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/spouse_tablerow"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#dfdfdf"
+                android:gravity="center">
+
+                <RadioGroup
+                    android:id="@+id/spouse_radiogroup"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="8.5">
+                    >
+
+                    <TextView
+                        android:id="@+id/spouse_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="아버지"/>
+
+
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/spouse_radio0"
+                        android:clickable="false"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:enabled="false"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/spouse_radio1"
+                        android:clickable="false"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:enabled="false"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/spouse_radio2"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:clickable="false"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/spouse_radio3"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:clickable="false"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                </RadioGroup>
+            </TableRow>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="#000000" />
+
+            <TableRow
+                android:id="@+id/score_table_row"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioGroup
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_width="0dp">
+
+                    <TextView
+                        android:text=""
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="0.5"
+                        />
+
+                    <TextView
+                        android:text="전혀 못함"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:text="못하는 편"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="할 수 있는편"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:text="잘하는 편"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/myanswer_radio"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="#aeaeae">
+
+                <RadioGroup
+                    android:id="@+id/myradiogroup"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="8.5">
+                    >
+                    <TextView
+                        android:id="@+id/my_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1.5"
+                        android:text="아버지"/>
+
+
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/my_radio0"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/my_radio1"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/my_radio2"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:visibility="invisible"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center"
+                        />
+                    <DataStructure.ToggleableRadioButton
+                        android:id="@+id/my_radio3"
+                        android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        />
+
+                </RadioGroup>
+            </TableRow>
+
+        </TableLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

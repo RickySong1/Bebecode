@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_linearlayout"
+    android:orientation="vertical"
+    android:background="@drawable/card_edge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/cardview_dark_background"
+                android:gravity="center"
+                android:text="아기 발달기록 진행상황"
+                android:textSize="15dp"
+                android:textColor="@color/cardview_light_background" />
+        </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:text="아빠"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:text="엄마"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="대근육"
+        android:textColor="@color/cardview_dark_background"
+                android:textSize="10dp" />
+
+            <ProgressBar
+                android:id="@+id/widget_progress_big_father"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:layout_marginRight="15dp"
+                android:progress="3"
+                android:visibility="visible" />
+            />
+
+            <ProgressBar
+                android:id="@+id/widget_progress_big_mother"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="7"
+                android:visibility="visible" />
+            />
+       </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="소근육"
+                 android:textColor="@color/cardview_dark_background"
+                android:textSize="10dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_small_father"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+
+            <ProgressBar
+                android:id="@+id/progress_small_mother"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="인지"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="10dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_recognition_father"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+
+            <ProgressBar
+                android:id="@+id/progress_recognition_mother"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+      </LinearLayout>
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+        android:textColor="@color/cardview_dark_background"
+                android:gravity="center"
+                android:text="언어"
+                android:textSize="10dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_language_father"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:layout_marginRight="15dp"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+
+            <ProgressBar
+                android:id="@+id/progress_language_mother"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+        android:textColor="@color/cardview_dark_background"
+                android:text="사회성"
+                android:textSize="10dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_social_father"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_height="10dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:layout_marginRight="15dp"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+
+            <ProgressBar
+                android:id="@+id/progress_social_mother"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+       </LinearLayout>
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+        android:textColor="@color/cardview_dark_background"
+                android:gravity="center"
+                android:text="자조"
+                android:textSize="10dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_self_father"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_height="10dp"
+                android:max="8"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:progress="5"
+                android:layout_marginRight="15dp"
+                android:visibility="visible" />
+            />
+
+            <ProgressBar
+                android:id="@+id/progress_self_mother"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:layout_weight="4.5"
+                android:gravity="center"
+                android:max="8"
+                android:progress="5"
+                android:visibility="visible" />
+            />
+       </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/cardview_dark_background"
+            android:gravity="center"
+            android:text="어제 푼 개수"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/widget_yesterday_father"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/cardview_dark_background"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/widget_yesterday_mother"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/cardview_dark_background"
+            android:text="0"
+            android:textSize="15dp" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/cardview_dark_background"
+            android:gravity="center"
+            android:text="오늘 푼 개수"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/widget_today_father"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/cardview_dark_background"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/widget_today_mother"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/cardview_dark_background"
+            android:text="0"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/cardview_dark_background"
+                android:gravity="center"
+                android:text="다음 발달 문제지로 변경까지 남은 일자"
+                android:textSize="15dp"
+                android:textColor="@color/cardview_light_background" />
+</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="20dp" />
+
+
+        <TextView
+                android:id="@+id/widget_dday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="00일"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/recent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:textColor="#797979"
+            android:text="4시간 마다 업데이트됩니다."
+            android:textSize="10dp" />
+
+     </LinearLayout>
+
+
+</LinearLayout>

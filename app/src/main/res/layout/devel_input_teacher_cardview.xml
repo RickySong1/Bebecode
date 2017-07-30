@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardPreventCornerOverlap="false"
+        android:layout_marginTop="25dp">
+
+        <FrameLayout
+            android:background="@drawable/card_edge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/text_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="질문 1."
+                android:textColor="#FF0000"
+                android:paddingLeft="5dp"
+                android:textSize="15dp"
+                android:layout_weight="2.5" />
+
+
+            <ImageView
+                android:id="@+id/img_question_section"
+                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:scaleType="centerInside"
+                android:layout_weight="2.5"
+                android:src="@drawable/smallmuscle_icon"
+                android:paddingTop="2dp"
+                />
+
+            <ImageView
+                android:id="@+id/cameraImg"
+                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:scaleType="centerInside"
+                android:layout_weight="2.5"
+                android:src="@drawable/camera_on"
+                android:paddingTop="2dp"
+                />
+
+            <ImageView
+                android:id="@+id/img_question_mark"
+                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:scaleType="centerInside"
+                android:layout_weight="2.5"
+                android:src="@drawable/question"
+                android:paddingTop="2dp"
+                />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:padding="5dp"
+                android:id="@+id/text_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Q. 한손으로 컵을 들고 마신다. 소근육운동에 관한 예제질문."
+                android:textSize="15dp"
+                android:layout_gravity="center" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:weightSum="10"
+            >
+
+        <ImageView
+            android:id="@+id/camera_upload"
+            android:layout_height="25dp"
+            android:layout_width="0dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/camera_upload"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:layout_weight="2"
+            android:padding="3dp"
+            />
+
+            <TextView
+                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_gravity="right"
+                android:layout_weight="2.5"
+                android:padding="3dp"
+                android:text=" ddd"
+                android:visibility="invisible"
+                />
+
+            <TextView
+                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_gravity="right"
+                android:layout_weight="2.5"
+                android:padding="3dp"
+                android:visibility="invisible"
+                android:text=" ddd"
+                />
+            <TextView
+                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_gravity="right"
+                android:layout_weight="2.5"
+                android:padding="3dp"
+                android:visibility="invisible"
+                android:text=" ddd"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/img_question_section2"
+                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:scaleType="centerInside"
+                android:layout_weight="3.3"
+                android:src="@drawable/smallmuscle_icon"
+                android:layout_margin="10dp"
+                />
+            <ImageView
+                android:id="@+id/img_question_mark2"
+                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:layout_weight="3.3"
+                android:src="@drawable/question"
+                android:layout_margin="10dp"
+                android:onClick="onClick"
+                />
+            <ImageView
+                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:layout_weight="3.3"
+                android:scaleType="centerInside"
+                android:visibility="invisible"
+                android:src="@drawable/question"
+                android:layout_margin="10dp"
+                />
+        </TableRow>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
+            android:background="#000000" />
+
+            <TableRow
+                android:layout_height="10px"
+                android:background="@color/cardview_shadow_start_color">
+
+                <RadioGroup
+                    android:id="@+id/teacher_radiogroup"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="4">
+                >
+                            <DataStructure.ToggleableRadioButton
+                                android:padding="10dp"
+                                android:id="@+id/teacherinput_radio0"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="15dp"
+                                android:text="하지 못하는 편"
+                                 />
+                            <DataStructure.ToggleableRadioButton
+                                android:padding="10dp"
+                                android:id="@+id/teacher_inputradio1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="15dp"
+                                android:text="할 수 있는 편"
+                                />
+                </RadioGroup>
+            </TableRow>
+
+    </TableLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

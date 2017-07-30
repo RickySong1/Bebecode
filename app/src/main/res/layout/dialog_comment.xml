@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@drawable/card_edge_red" >
+
+    <TextView
+        android:id="@+id/dialog_comment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="질문 2-1 숟가락을 바르게 든다."
+        android:textColor="#000000"
+        android:layout_margin="15dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="8"
+        android:background="#565656">
+
+        <TextView
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#3b3b3b"
+            android:text="아빠"
+            android:layout_margin="1dp"/>
+        <TextView
+            android:id="@+id/f_answer"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="잘하는편"
+            android:layout_margin="1dp"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="vs"
+            android:layout_margin="1dp"/>
+
+        <TextView
+            android:id="@+id/m_answer"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="못하는 편"
+            android:layout_margin="1dp"/>
+        <TextView
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:background="#3b3b3b"
+            android:gravity="center"
+            android:text="엄마"
+            android:layout_margin="1dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="#ffd900">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffc637"
+            android:text="▶ 대화를 통해서 의견차이를 줄여보세요."
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+        <ProgressBar
+            android:id="@+id/dialog_comment_progress1"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/im1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="7"
+            >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:fillViewport="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <ListView
+                    android:background="#cacaca"
+                    android:id="@+id/listView1"
+                    android:listSelector="#00000000"
+                    android:cacheColorHint="#00000000"
+                    android:divider="#000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:transcriptMode="alwaysScroll"/>
+                </ScrollView>
+            </FrameLayout>
+        </LinearLayout>
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="3"
+                android:weightSum="5"
+                android:layout_height="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:gravity="top"
+                    android:layout_gravity="center"
+                    android:layout_weight="2">
+
+                    <Button
+                        android:id="@+id/img_upload_btn"
+                        android:drawableLeft="@drawable/image_upload"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="#ffffff"
+                        android:text="사진/영상 공유"/>
+                    <Button
+                        android:id="@+id/img_message_btn"
+                        android:drawableLeft="@drawable/q_share"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="#ffffff"
+                        android:text="지인에게 묻기"/>
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:background="#FFFFFF"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                <LinearLayout
+                    android:layout_below="@id/im1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="#ffffff"
+                    android:weightSum="10"
+                    android:layout_gravity="center"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:hint="배우자와의 대화를 통해서 의견차이를 줄여보세요"
+                        android:id="@+id/dialog_comment_input"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:layout_weight="7"
+                        android:layout_width="0dp"
+                        android:imeOptions="flagNoExtractUi"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/dialog_comment_send"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:text="Send" />
+                </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

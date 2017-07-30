@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffd900">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="▶ 주변에 알 만한 지인에게 물어보세요. (ex. 선생님, 육아도우미, 조부모님)"
+            />
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/copyText"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/simpleback"
+        android:text="우리 아이 발달검사를 해보고 있습니다. '제자리에서 양발을 모아 깡충 뛴다.' 를 잘 하는 편인지 아닌지 어떻게 생각하시나요?"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#8c8c8c"
+        android:layout_marginLeft="10dp"
+        android:gravity="left"
+        android:text="지인의 의견을 응답화면에 입력해보세요."
+        />
+
+    <Button
+        android:id="@+id/img_message_btn"
+        android:layout_margin="5dp"
+        android:drawableLeft="@drawable/q_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="카톡으로 물어보기\n(위 문장이 전달됩니다.)"/>
+
+</LinearLayout>

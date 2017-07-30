@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">BebeCODE</string>
+    <string name="action_settings">나의 정보수정</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string-array name="section">
+
+        <item>풀지 않은 문제</item>
+        <item>의견차이</item>
+        <item>대근육운동</item>
+        <item>소근육운동</item>
+        <item>인지</item>
+        <item>언어</item>
+        <item>사회성</item>
+        <item>자조</item>
+        <item>모두</item>
+
+    </string-array>
+
+
+    <string-array name="important">
+        <item>모두</item>
+        <item>의견차이</item>
+        <item>요청</item>
+        <item>안 푼것</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_video_trimmer">VideoTrimmer</string>
+
+</resources>

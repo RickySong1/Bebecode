@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "774225907789",
+    "firebase_url": "https://bebecode-354a0.firebaseio.com",
+    "project_id": "bebecode-354a0",
+    "storage_bucket": "bebecode-354a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774225907789:android:f7d6902668906e80",
+        "android_client_info": {
+          "package_name": "com.kaist.supersong.bebecode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774225907789-bfms8at5m876eev9dldiofia5g73hqe2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG37o_gjqTNE6BDRqOsEQan5XDDcIwwJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

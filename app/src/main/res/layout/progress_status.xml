@@ -66,58 +66,14 @@
                     android:text="개인 문제풀이 현황"
                     android:textColor="@color/cardview_light_background" />
             </TableRow>
-
-            <TableRow>
-                <RelativeLayout
-                    android:layout_width="380dp"
-                    android:layout_height="match_parent">
-                    <ProgressBar
-                        android:id="@+id/progress_sample"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:max="9"
-                        android:progress="3"
-                        android:secondaryProgress="6"
-                        android:visibility="visible"
-                        android:progressDrawable="@drawable/progress_bar"/>
-                    <TextView
-                        android:id="@+id/text_different"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/progress_sample"
-                        android:layout_alignTop="@id/progress_sample"
-                        android:layout_toLeftOf="@id/text2"
-                        android:background="@android:color/transparent"
-                        android:text="의견차이             " />
-
-                    <TextView
-                        android:id="@+id/text_complete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/progress_sample"
-                        android:layout_alignLeft="@id/progress_sample"
-                        android:layout_alignRight="@id/progress_sample"
-                        android:layout_alignTop="@id/progress_sample"
-                        android:background="@android:color/transparent"
-                        android:text="                     완료" />
-
-                    <TextView
-                        android:id="@+id/text2"
-                        android:textColor="#ffffff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/progress_sample"
-                        android:layout_alignRight="@id/text_complete"
-                        android:layout_alignTop="@id/progress_sample"
-                        android:background="@android:color/transparent"
-                        android:text="미완료               " />
-
-
-                </RelativeLayout>
-            </TableRow>
-
+                <LinearLayout>
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/probar"
+                    />
+                </LinearLayout>
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"

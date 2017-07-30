@@ -39,6 +39,7 @@ import mymanager.MyFileManager;
 import mymanager.MySocketManager;
 
 import static com.kaist.supersong.bebecode.CheckFragment.fileM;
+import static com.kaist.supersong.bebecode.CheckFragment.recyclerView;
 import static com.kaist.supersong.bebecode.CheckFragment.sp_year;
 
 
@@ -77,7 +78,7 @@ public class ProgressStatus extends Fragment {
     ProgressBar progressbar_birth;
     TextView birth_left;
     TextView birth_right;
-    TextView progressbar_dday, t_differ, t_com;
+    TextView progressbar_dday;
 
     String childid;
 
@@ -157,23 +158,6 @@ public class ProgressStatus extends Fragment {
 
         notification_listview = (ListView) rootView.findViewById(R.id.notification_list);
 
-        t_differ = (TextView) rootView.findViewById(R.id.text_different);
-        t_com = (TextView) rootView.findViewById(R.id.text_complete);
-
-        t_differ.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "'문제풀기'탭으로 이동하셔서 의견차이가 나는 문제를 해결해보세요.", Toast.LENGTH_SHORT).show();
-            }
-        });
-        ;
-
-        t_com.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "'문제풀기'탭으로 이동하셔서 남은 문제를 풀어보세요.", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         parentScrollView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -217,13 +201,13 @@ public class ProgressStatus extends Fragment {
                     else if(section.contains("사회성")) sp_year.setSelection(7);
                     else if(section.contains("자조")) sp_year.setSelection(8);
                     else sp_year.setSelection(10);
+
                     if(_noti_position < 0){
                         // move to the first
-                        //recyclerView.smoothScrollToPosition(0);
+
                     }
                     else{
-
-                        //recyclerView.smoothScrollToPosition(3);
+                        recyclerView.scrollToPosition(_noti_position-1);
                         /*
                         final Dialog dialog;
                         dialog = new DialogForAgree(getContext(),_noti_position);
@@ -284,7 +268,7 @@ public class ProgressStatus extends Fragment {
             }
         };
         mTimer = new Timer();
-        mTimer.schedule(mTask, 1 , 5000);
+        mTimer.schedule(mTask, 1 , 4000);
 
         new TaskImageLoading((RecyclerView)rootView.findViewById(R.id.image_card_recycler_view)).execute();
         new TaskNotificationTextLoad(notification_adapter).execute();

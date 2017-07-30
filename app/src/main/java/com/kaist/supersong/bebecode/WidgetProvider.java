@@ -309,8 +309,8 @@ public class WidgetProvider extends AppWidgetProvider {
             conflict_progress[_items.get(i).getQuestion_type()] += (_items.get(i).isConflict() ? 1 : 0);
         }
 
-        views.setProgressBar(R.id.widget_progress_big_father, 8, 1, false);
-        views.setProgressBar(R.id.widget_progress_big_mother, 8, 1, false);
+        views.setProgressBar(R.id.widget_progress_big_father, 8, father_progress[0], false);
+        views.setProgressBar(R.id.widget_progress_big_mother, 8, mother_progress[0], false);
         views.setProgressBar(R.id.progress_small_father, 8, father_progress[1], false);
         views.setProgressBar(R.id.progress_small_mother, 8, mother_progress[1], false);
         views.setProgressBar(R.id.progress_recognition_father, 8, father_progress[2], false);

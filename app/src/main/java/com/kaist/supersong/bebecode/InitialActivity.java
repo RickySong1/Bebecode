@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -215,7 +216,18 @@ public class InitialActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            get_msg = socketM.serverPingTest();
+
+            PackageInfo pi = null;
+
+            try {
+                pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            String version = pi.versionName;
+            get_msg = socketM.serverPingTest(version);
             return null;
         }
 
@@ -223,7 +235,6 @@ public class InitialActivity extends Activity {
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            Log.e("get_msg",get_msg);
             if (get_msg.contains("ALIVE")){
                 checking.dismiss();
 
@@ -238,6 +249,10 @@ public class InitialActivity extends Activity {
 
                     startMain();
                 }
+            }
+            else if(get_msg.contains("VERSION")){
+                Toast.makeText(getApplicationContext() , "프로그램을 최신버젼으로 업데이트 해주세요.", Toast.LENGTH_SHORT).show();
+                finish();
             }
             else {
                 Toast.makeText(getApplicationContext() , "Server is not running", Toast.LENGTH_SHORT).show();

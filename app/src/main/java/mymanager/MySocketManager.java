@@ -103,9 +103,9 @@ public class MySocketManager {
         return get_message;
     }
 
-    public String serverPingTest(){
+    public String serverPingTest(String version){
 
-        String send_message = "##UNKNOWN##UNKNOWN##PING_TEST##";
+        String send_message = "##UNKNOWN##UNKNOWN##PING_TEST##"+version+"##";
         String get_message = "Server is dead";
 
         int [][] result = null;
@@ -113,6 +113,7 @@ public class MySocketManager {
         try {
             socket = new Socket();
             socket.connect(new InetSocketAddress(IP_ADDRESS, PORT),10000);
+
 
             br = new BufferedReader(new InputStreamReader( socket.getInputStream()));
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter( socket.getOutputStream())), true);

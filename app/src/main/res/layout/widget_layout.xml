@@ -265,10 +265,11 @@
         android:layout_height="wrap_content">
 
     <TextView
+                android:id="@+id/textjajo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-        android:textColor="@color/cardview_dark_background"
+                android:textColor="@color/cardview_dark_background"
                 android:gravity="center"
                 android:text="자조"
                 android:textSize="10dp" />

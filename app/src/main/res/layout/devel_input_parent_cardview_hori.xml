@@ -62,7 +62,7 @@
 
                 <ImageView
                     android:id="@+id/conflictImg"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:layout_width="0dp"
                     android:scaleType="centerInside"
                     android:layout_weight="2.5"
@@ -174,6 +174,7 @@
 
                     <DataStructure.ToggleableRadioButton
                         android:visibility="invisible"
+                        android:id="@+id/teacher_radio0"
                         android:padding="10dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -229,6 +230,7 @@
                         android:layout_gravity="center"
                         />
                     <DataStructure.ToggleableRadioButton
+                        android:id="@+id/teacher_radio3"
                         android:visibility="invisible"
                         android:padding="10dp"
                         android:layout_width="0dp"

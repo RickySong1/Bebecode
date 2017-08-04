@@ -72,6 +72,8 @@ public class InitialActivity extends Activity {
 
         fileM = new MyFileManager();
 
+        //fileM.writeMonthQuestiontoFile();
+
         father = (ImageButton)findViewById(R.id.imageButtonFather);
         mother = (ImageButton)findViewById(R.id.imageButtonMother);
         //teacher = (ImageButton)findViewById(R.id.imageButtonTeacher);

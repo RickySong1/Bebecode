@@ -85,11 +85,12 @@ public class ResultFragment extends Fragment {
         List<BabyResultCard> items=new ArrayList<>();
         ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
         fileM.getChildList(list_itemArrayList);
-
+        Boolean isShort = false;
 
         if(list_itemArrayList.size() >0) {
             String month = list_itemArrayList.get(0).getMonth();
             MonthQuestions myMonthQuestion = fileM.getMonthQuestions(month);
+            isShort = myMonthQuestion.isShortMonth();
             String _id = list_itemArrayList.get(0).getId();
             MySocketManager socketM = new MySocketManager(USERTYPE);
 
@@ -121,10 +122,10 @@ public class ResultFragment extends Fragment {
         }
 
         // need month , result , month object
-        items.add(new BabyResultCard("결과Sample A",new int[]{22,15,14,16,18,15} , new Month27_29()) );
+        //items.add(new BabyResultCard("결과Sample A",new int[]{22,15,14,16,18,15} , new Month27_29()) );
         //items.add(new BabyResultCard("결과Sample B",new int[]{12,12,11,-5,1,-6} , new Month24_26()) );
 
-        recyclerView.setAdapter(new RecyclerAdapterResult(rootView.getContext(),  items,   R.layout.result_show_form));
+        recyclerView.setAdapter(new RecyclerAdapterResult(rootView.getContext(),  items,   R.layout.result_show_form , isShort));
 
         return rootView;
     }

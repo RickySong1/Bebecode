@@ -37,6 +37,7 @@ import DataStructure.Notification_Adapter;
 import DataStructure.Notification_msg;
 import mymanager.MyFileManager;
 import mymanager.MySocketManager;
+import questions.MonthQuestions;
 
 import static com.kaist.supersong.bebecode.CheckFragment.fileM;
 import static com.kaist.supersong.bebecode.CheckFragment.recyclerView;
@@ -72,6 +73,8 @@ public class ProgressStatus extends Fragment {
     public static String IMG_BABY="BABY";
     public static String IMG_LOVE="LOVE";
     public static String IMG_IMG="IMAGE";
+    public static String IMG_OTHER="OTHER";
+    public static String IMG_TIMEOUT="TIMEOUT";
 
     ScrollView childScrollView,parentScrollView;
 
@@ -128,7 +131,6 @@ public class ProgressStatus extends Fragment {
         View rootView = null;
         rootView = inflater.inflate(R.layout.progress_status, container, false);
 
-
         _items = new ArrayList<>();
 
         parentScrollView = (ScrollView) rootView.findViewById(R.id.parentScrollView);
@@ -147,6 +149,7 @@ public class ProgressStatus extends Fragment {
         progress_mother[3] = (ProgressBar) rootView.findViewById(R.id.progress_language_mother);
         progress_mother[4] = (ProgressBar) rootView.findViewById(R.id.progress_social_mother);
         progress_mother[5] = (ProgressBar) rootView.findViewById(R.id.progress_self_mother);
+        TextView textJajo = (TextView) rootView.findViewById(R.id.textJajo);
 
         progressbar_sum_upload = (ProgressBar) rootView.findViewById(R.id.progrssbar_sum_upload);
         progressbar_sum_problem = (ProgressBar) rootView.findViewById(R.id.progressbar_sum_problem);
@@ -221,7 +224,6 @@ public class ProgressStatus extends Fragment {
 
         notification_listview.setOnItemClickListener(listViewClickListener);
 
-
         for(int i=0 ; i< progress_father.length ; i++){
             progress_father[i].setMax(8);
             progress_mother[i].setMax(8);
@@ -230,6 +232,11 @@ public class ProgressStatus extends Fragment {
         ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
         fileM.getChildList(list_itemArrayList);
         String birth_s = fileM.getMonthString(list_itemArrayList.get(0).getMonth());
+        if( ((MonthQuestions)fileM.getMonthQuestions(list_itemArrayList.get(0).getMonth())).isShortMonth()){ // hide jajo
+            progress_mother[5].setVisibility(ProgressBar.GONE);
+            progress_father[5].setVisibility(ProgressBar.GONE);
+            textJajo.setVisibility(TextView.GONE);
+        }
         String my_birth = list_itemArrayList.get(0).getStatus();
         String text_dday="0";
 

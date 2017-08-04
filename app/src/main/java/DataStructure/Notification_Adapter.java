@@ -33,14 +33,13 @@ public class Notification_Adapter extends BaseAdapter implements OnClickListener
     private TextView tvUserName;
     private TextView tvUserPhoneNumber;
 
-
     private Bitmap noti_father;
     private Bitmap noti_mother;
     private Bitmap noti_img;
     private Bitmap noti_love;
     private Bitmap noti_baby;
-
-
+    private Bitmap noti_other;
+    private Bitmap noti_timeout;
 
     // 리스트 아이템 데이터를 저장할 배열
     private ArrayList<Notification_msg> mUserData;
@@ -57,7 +56,8 @@ public class Notification_Adapter extends BaseAdapter implements OnClickListener
         noti_img = BitmapFactory.decodeResource(mResources, R.drawable.noti_img);
         noti_love = BitmapFactory.decodeResource(mResources, R.drawable.noti_love);
         noti_baby = BitmapFactory.decodeResource(mResources, R.drawable.noti_baby);
-
+        noti_other = BitmapFactory.decodeResource(mResources, R.drawable.noti_other);
+        noti_timeout = BitmapFactory.decodeResource(mResources, R.drawable.noti_timeout);
     }
 
     @Override
@@ -139,6 +139,10 @@ public class Notification_Adapter extends BaseAdapter implements OnClickListener
                 holder.userImage.setImageBitmap(noti_love);
             else if(mUser.getmImgType().contains(ProgressStatus.IMG_BABY))
                 holder.userImage.setImageBitmap(noti_baby);
+            else if(mUser.getmImgType().contains(ProgressStatus.IMG_OTHER))
+                holder.userImage.setImageBitmap(noti_other);
+            else if(mUser.getmImgType().contains(ProgressStatus.IMG_TIMEOUT))
+                holder.userImage.setImageBitmap(noti_timeout);
             else
                 holder.userImage.setImageBitmap(noti_baby);
             holder.msg.setText(mUser.getmMsg());

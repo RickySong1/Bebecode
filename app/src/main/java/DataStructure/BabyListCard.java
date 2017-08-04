@@ -22,9 +22,11 @@ package DataStructure;
         private int picture_source;
         private String source_name;
         private Boolean comment_on;
+        private Boolean canbe_seen;
+        private int new_check;
 
         // question_type : big or small or recognition....
-        public BabyListCard(int q_id, String question_number, String question, int question_type, int teacher_request, int s_request, int clicked_radio, int spouse_cliccked, int teacher_clicked , String childId, boolean spouse_request, boolean conflict , boolean _hide, int p, String sname, int _comment_on) {
+        public BabyListCard(int q_id, String question_number, String question, int question_type, int teacher_request, int s_request, int clicked_radio, int spouse_cliccked, int teacher_clicked , String childId, boolean spouse_request, boolean conflict , boolean _hide, int p, String sname, int _comment_on , int new_check) {
             this.question_number = question_number;
             this.question = question;
             this.question_type = question_type;
@@ -41,6 +43,8 @@ package DataStructure;
             this.question_id = q_id;
             this.source_name = sname;
             this.comment_on =  (_comment_on == 1);
+            this.new_check = new_check;
+            this.canbe_seen = false;
         }
 
         public void setNewCard(BabyListCard newone){
@@ -62,11 +66,15 @@ package DataStructure;
         }
 
 
+        public int getNew_check(){ return new_check;}
+        public void setNew_check(int aa){ new_check = aa;}
         public void setSource_name(String sname){source_name  = sname;}
         private void setQuestion_id(int q_id) { question_id = q_id;}
         public void setPicture_source(int p) { picture_source = p;}
         public void setHide(boolean value){ hide = value;}
+        public void setCanbe_seen(Boolean value) { canbe_seen = value;}
 
+    public boolean isCanbe_seen(){ return canbe_seen ;}
     public boolean isHide() { return hide;}
 
     public boolean isSpouse_request() {

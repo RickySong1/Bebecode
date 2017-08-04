@@ -14,8 +14,14 @@ public class Month20_21 extends MonthQuestions {
         return answerList;
     }
     public ArrayList<Integer> getTeacherImportantPosition() { return teacherImportantPosition;}
+    private String filename;
 
-    public Month20_21(){
+    public String getFileName() {
+        return filename;
+    }
+    public Month20_21(String file){
+
+        filename = file;
 
         answerList = new ArrayList<int[]>();
         answerList.add(new int[]{12,17,23});  // big-muscle

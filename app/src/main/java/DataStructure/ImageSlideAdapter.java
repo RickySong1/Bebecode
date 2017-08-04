@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kaist.supersong.bebecode.R;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class  ImageSlideAdapter extends RecyclerView.Adapter<ImageSlideAdapter.V
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.tv_android.setText(android_versions.get(i).getAndroid_version_name());
         //Picasso.with(context).load(android_versions.get(i).getAndroid_image_url()).resize(60, 120).into(viewHolder.img_android);
-        Picasso.with(context).load(android_versions.get(i).getAndroid_image_url()).resize(200, 300).centerInside().into(viewHolder.img_android);
+        Picasso.with(context).load(android_versions.get(i).getAndroid_image_url()).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).resize(200, 300).centerInside().into(viewHolder.img_android);
     }
 
     @Override

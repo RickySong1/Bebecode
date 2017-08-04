@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Switch;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,16 +52,23 @@ public class TrackGraph extends Fragment {
     private String mParam2;
     ProgressBar progressbar;
 
+    TableRow supportLine;
     ArrayList<String> socket_track_data;
     LineChartView chart;
     List<Line> lines;
     LineChartData data;
 
     Line line1; Line line2; Line line3; Line line4; Line line5; Line line6; Line line_dot;
+    Line help1; Line help2;
+
+    List<PointValue> values1; List<PointValue> values2; List<PointValue> values3; List<PointValue> values4; List<PointValue> values5; List<PointValue> values6; List<PointValue> values_dot;
 
     private OnFragmentInteractionListener mListener;
 
     Switch [] switch_g;
+
+    View jajoview;
+    TextView jajotext;
 
     public TrackGraph() {
         // Required empty public constructor
@@ -98,6 +107,9 @@ public class TrackGraph extends Fragment {
         // Inflate the layout for this fragment
         View rootView=null;
         rootView =inflater.inflate(R.layout.fragment_track_graph, container, false);
+
+        supportLine = (TableRow) rootView.findViewById(R.id.tablerow_helpline);
+
         switch_g = new Switch[6];
 
         switch_g[0] = (Switch) rootView.findViewById(R.id.switch_big);
@@ -107,6 +119,8 @@ public class TrackGraph extends Fragment {
         switch_g[4] = (Switch) rootView.findViewById(R.id.switch_social);
         switch_g[5] = (Switch) rootView.findViewById(R.id.switch_self);
 
+        jajoview = (View) rootView.findViewById(R.id.viewjajo);
+        jajotext = (TextView) rootView.findViewById(R.id.textjajo);
 
         lines = new ArrayList<Line>();
         socket_track_data = new ArrayList<String>();
@@ -153,6 +167,7 @@ public class TrackGraph extends Fragment {
         MySocketManager socketM;
         MonthQuestions myMonthQuestion;
         int average_delay_score = 0;
+        Boolean isShort = false;
 
         @Override
         protected void onPreExecute() {
@@ -186,6 +201,7 @@ public class TrackGraph extends Fragment {
                     month = list_itemArrayList.get(0).getMonth();
                     myMonthQuestion = fileM.getMonthQuestions(month);
                     _id = list_itemArrayList.get(0).getId();
+                    isShort = myMonthQuestion.isShortMonth();
                 }
 
                 int total_count = 0;
@@ -211,6 +227,62 @@ public class TrackGraph extends Fragment {
             public void onValueDeselected() { }
         }
 
+        public void checkOneLine(){
+
+            if( lines.size() == 1){
+                supportLine.setVisibility(TableRow.VISIBLE);
+                List<PointValue> help_value1 = new ArrayList<PointValue>();
+                List<PointValue> help_value2 = new ArrayList<PointValue>();
+
+                if(lines.get(0) == line1){
+                    for(int i=0 ; i< values1.size() ; i++){
+                        help_value1.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[0]));
+                        help_value2.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[1]));
+                    }
+                }else if( lines.get(0) == line2){
+                    for(int i=0 ; i< values2.size() ; i++){
+                        help_value1.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[0]));
+                        help_value2.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[1]));
+                    }
+                }else if( lines.get(0) == line3){
+                    for(int i=0 ; i< values3.size() ; i++){
+                        help_value1.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[0]));
+                        help_value2.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[1]));
+                    }
+                }else if( lines.get(0) == line4){
+                    for(int i=0 ; i< values4.size() ; i++){
+                        help_value1.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[0]));
+                        help_value2.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[1]));
+                    }
+                }else if( lines.get(0) == line5){
+                    for(int i=0 ; i< values5.size() ; i++){
+                        help_value1.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[0]));
+                        help_value2.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[1]));
+                    }
+                }else if( lines.get(0) == line6){
+                    for(int i=0 ; i< values6.size() ; i++){
+                        help_value1.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[0]));
+                        help_value2.add(new PointValue(i,myMonthQuestion.getAnswerList().get(0)[1]));
+                    }
+                }
+                help1 = new Line(help_value1).setColor(Color.parseColor("#FF0000")).setHasLabels(true).setHasLines(true);
+                help2 = new Line(help_value2).setColor(Color.parseColor("#AA0000")).setHasLabels(true).setHasLines(true);
+                lines.add(help1);
+                lines.add(help2);
+            }else{
+                int count = 0;
+                while(lines.size() > count){
+                    if( lines.get(count) == help1 || lines.get(count) == help2){
+                        lines.remove(count);
+                        count = 0;
+                    }
+                    count++;
+                }
+                supportLine.setVisibility(TableRow.GONE);
+            }
+        }
+
+
         @Override
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
@@ -226,13 +298,13 @@ public class TrackGraph extends Fragment {
 
             axisY.setName("발달점수");
 
-            List<PointValue> values1 = new ArrayList<PointValue>();
-            List<PointValue> values2 = new ArrayList<PointValue>();
-            List<PointValue> values3 = new ArrayList<PointValue>();
-            List<PointValue> values4 = new ArrayList<PointValue>();
-            List<PointValue> values5 = new ArrayList<PointValue>();
-            List<PointValue> values6 = new ArrayList<PointValue>();
-            List<PointValue> values_dot = new ArrayList<PointValue>();
+            values1 = new ArrayList<PointValue>();
+            values2 = new ArrayList<PointValue>();
+            values3 = new ArrayList<PointValue>();
+            values4 = new ArrayList<PointValue>();
+            values5 = new ArrayList<PointValue>();
+            values6 = new ArrayList<PointValue>();
+            values_dot = new ArrayList<PointValue>();
             //In most cased you can call data model methods in builder-pattern-like manner.
 
             axisValues = new ArrayList<AxisValue>();
@@ -262,7 +334,13 @@ public class TrackGraph extends Fragment {
             line6 = new Line(values6).setColor(Color.GRAY).setHasLabels(true).setHasLabels(true).setHasLines(true);
             line_dot = new Line(values_dot).setColor(Color.parseColor("#5c98ff")).setHasLabels(false).setHasLines(true).setHasLabelsOnlyForSelected(true);
 
-            lines.add(line6);
+            if(!isShort) {
+                lines.add(line6);
+            }else{
+                jajoview.setVisibility(View.INVISIBLE);
+                jajotext.setVisibility(TextView.INVISIBLE);
+                switch_g[5].setVisibility(Switch.INVISIBLE);
+            }
             lines.add(line1);
             lines.add(line3);
             lines.add(line2);
@@ -275,8 +353,8 @@ public class TrackGraph extends Fragment {
             data.setLines(lines);
             data.setAxisYLeft(axisY);
             data.setAxisXBottom(new Axis(axisValues).setTextColor(Color.BLACK).setTextSize(10));
-            chart.setLineChartData(data);
 
+            chart.setLineChartData(data);
             chart.setInteractive(true);
             chart.setZoomType(ZoomType.HORIZONTAL);
             //chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
@@ -304,6 +382,7 @@ public class TrackGraph extends Fragment {
                             }
                         }
                     }
+                    checkOneLine();
                     data.setLines(lines);
                     chart.setLineChartData(data);
                 }
@@ -319,6 +398,7 @@ public class TrackGraph extends Fragment {
                             }
                         }
                     }
+                    checkOneLine();
                     data.setLines(lines);
                     chart.setLineChartData(data);
                 }
@@ -334,6 +414,7 @@ public class TrackGraph extends Fragment {
                             }
                         }
                     }
+                    checkOneLine();
                     data.setLines(lines);
                     chart.setLineChartData(data);
                 }
@@ -349,6 +430,7 @@ public class TrackGraph extends Fragment {
                             }
                         }
                     }
+                    checkOneLine();
                     data.setLines(lines);
                     chart.setLineChartData(data);
                 }
@@ -364,6 +446,7 @@ public class TrackGraph extends Fragment {
                             }
                         }
                     }
+                    checkOneLine();
                     data.setLines(lines);
                     chart.setLineChartData(data);
                 }
@@ -379,8 +462,10 @@ public class TrackGraph extends Fragment {
                             }
                         }
                     }
+                    checkOneLine();
                     data.setLines(lines);
                     chart.setLineChartData(data);
+
                 }
             });
         }

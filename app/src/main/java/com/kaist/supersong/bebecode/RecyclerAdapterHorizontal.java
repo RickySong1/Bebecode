@@ -1,8 +1,10 @@
 package com.kaist.supersong.bebecode;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +15,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
@@ -55,6 +59,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
     int item_layout;
     final static int numOfResultRows = 6;
     public final static String uploadURL = "http://143.248.134.177/uploads/";
+    public final static String TIMEOUT_STRING_HOUR = "168";
     final static int normal =0;
     final static int additional =1;
     final static int do_hide  =2;
@@ -89,7 +94,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
         return new ViewHolder(v);
     }
 
-    public void updateCardview(ViewHolder holder, final int position){
+    public void updateCardview(final ViewHolder holder, final int position){
 
         if(items.get(position).getClicked_radio() <= 1 &&  ( items.get(position).getSpouse_cliccked() == 2 || items.get(position).getSpouse_cliccked() == 3 )){
             items.get(position).setConflict(true);
@@ -127,6 +132,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                 }
             }
         }
+        items.get(position).setCanbe_seen(canbe_seen);
 
         holder.myanswer_tablerow.setBackgroundColor(Color.TRANSPARENT);
         if( (items.get(position).getClicked_radio() >= 0 && items.get(position).getClicked_radio() < 4)){
@@ -135,6 +141,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
             else
                 holder.myanswer_tablerow.setBackgroundColor(Color.parseColor("#ffaa95"));
         }
+
 
         if(canbe_seen) {
             //holder.spouse_tablerow.setForeground(null);
@@ -148,54 +155,19 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                 public void onClick(View v) {
 
                     final Dialog dialog;
-                    dialog = new DialogForAgree(context,position);
+                    dialog = new DialogForAgree(context,position , items.get(position).getPicture_source() );
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.show();
-                    /*
-                    final Dialog dialog;
-                    final TextView dialog_title, dialog_context;
-                    final EditText input;
-                    Button send_btn;
-                    final ProgressBar loading;
-
-                    dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.dialog_comment);
-
-                    dialog_title = (TextView) dialog.findViewById(R.id.dialog_comment_title);
-                    dialog_context = (TextView) dialog.findViewById(R.id.dialog_comment_context);
-                    input = (EditText) dialog.findViewById(R.id.dialog_comment_input);
-                    send_btn = (Button) dialog.findViewById(R.id.dialog_comment_send);
-                    loading = (ProgressBar) dialog.findViewById(R.id.dialog_comment_progress);
-                    dialog_title.setText(items.get(position).getQuestion_number() +" : "+ items.get(position).getQuestion());
-
-                    send_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String msg = input.getText().toString();
-                            if (msg.length() > 0 ) {
-                                String new_dialog = null;
-
-                                Calendar time = Calendar.getInstance();
-                                new_dialog = MainActivity.USERTYPE+" ["+(time.get(Calendar.MONTH)+1) +"/" + time.get(Calendar.DAY_OF_MONTH) +" " +time.get(Calendar.HOUR_OF_DAY) +":"+ time.get(Calendar.MINUTE)+"] " + msg;
-                                dialog_context.setText(dialog_context.getText()+new_dialog+"\n");
-                                MySocketManager socc = new MySocketManager(MainActivity.USERTYPE);
-                                socc.setComment(items.get(position).getChildID(), Integer.toString(position), items.get(position).getQuestion_number().split(" ")[1] , input.getText().toString());
-                                input.setText("");
-                            }
-                        }
-                    });
-
-                    ViewGroup.LayoutParams params = dialog.getWindow().getAttributes();
-                    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
-                    new TaskCommentLoading(items.get(position).getChildID(), items.get(position).getQuestion_number() , dialog_context , loading).execute();
-
-                    dialog.show();
-                    */
+                    items.get(position).setNew_check(0);
+                    holder.conflictImage.setImageResource(R.drawable.discussion);
+                    socketM.openChat(items.get(0).getChildID(), position);
                 }
             });
+
+            if(items.get(position).getNew_check() > 0) {
+                holder.conflictImage.setImageResource(R.drawable.discussion_new);
+            }else
+                holder.conflictImage.setImageResource(R.drawable.discussion);
 
             if(items.get(position).isConflict()) {
                 holder.q_question.setTextColor(Color.parseColor("#FFFF0000"));
@@ -401,6 +373,10 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                     public void onClick(View v) {
                         //viewholderfinal.teacher_tablerow.setVisibility(TableRow.VISIBLE);
                         //viewholderfinal.spouse_tablerow.setVisibility(TableRow.VISIBLE);
+                        Boolean before_c=false;
+                        if(items.get(position).isConflict()){
+                            before_c = true;
+                        }
 
                         if(viewholderfinal.myRadioGroup.getCheckedRadioButtonId() <0 ) { // if unchecked , value is 9
                             items.get(position).setClicked_radio(9);
@@ -409,17 +385,119 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                             for(int i=0 ; i< 4 ; i++){
                                 if(viewholderfinal.normalButtons[i].isChecked()){
                                     items.get(position).setClicked_radio(i);
-                                    //socketM.setTimer(position, items_all.get(position).getChildID() , i , MainActivity.USERTYPE);
+                                    socketM.setTimer(position, items_all.get(position).getChildID() , TIMEOUT_STRING_HOUR , MainActivity.USERTYPE);
                                 }
                             }
                         }
-
                         updateCardview(viewholderfinal,position);
                         notifyDataSetChanged();
-
                         Message msg = msgHandler.obtainMessage(CheckFragment.QUESTION_ANSWER_CHECKED);
                         msgHandler.handleMessage(msg); // change progressbar
                         socketM.setTcpIpResult(MainActivity.USERTYPE, MySocketManager.SET_DATA, items_all , items, MySocketManager.SET_DATA_MY_RESULT);
+
+                        if(before_c && !items.get(position).isConflict() && items.get(position).isCanbe_seen()){
+                            // set LOG  why the conflict was happen (only can_be seen)
+
+                            final View dialogView= LayoutInflater.from(context).inflate(R.layout.dialog_reason, null, false);
+                            AlertDialog.Builder buider= new AlertDialog.Builder(context); //AlertDialog.Builder 객체 생성
+                            buider.setTitle("의견차이를 없앨 수 있게 된 원인을 남겨주세요."); //Dialog 제목
+                            buider.setIcon(android.R.drawable.ic_dialog_info); //제목옆의 아이콘 이미지(원하는 이미지 설정)
+                            buider.setView(dialogView); //위에서 inflater가 만든 dialogView 객체 세팅 (Customize)
+                            buider.setCancelable(false);
+                            buider.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // TODO Auto-generated method stub
+
+                                }
+                            });
+
+                            /*
+                            buider.setPositiveButton("기록하기", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    // TODO Auto-generated method stub
+                                    EditText edit_name= (EditText)dialogView.findViewById(R.id.dialog_reason);
+                                    RadioGroup rg= (RadioGroup)dialogView.findViewById(R.id.dialog_reasion_selection);
+                                    String reason= edit_name.getText().toString();
+                                    int checkedId = rg.getCheckedRadioButtonId();
+
+                                    // unchecked
+                                    if(checkedId <0){
+
+                                    }
+
+                                    Toast.makeText(context, Integer.toString(checkedId)  +":" +reason, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            */
+                            final AlertDialog dialog=buider.create();
+                            View.OnClickListener override_listender= new View.OnClickListener(){
+                                @Override
+                                public void onClick(View v) {
+                                    EditText edit_name= (EditText)dialogView.findViewById(R.id.dialog_reason);
+                                    RadioGroup rg= (RadioGroup)dialogView.findViewById(R.id.dialog_reasion_selection);
+                                    RadioButton btn0 = (RadioButton)dialogView.findViewById(R.id.dialog_selection0);
+                                    RadioButton btn1 = (RadioButton)dialogView.findViewById(R.id.dialog_selection1);
+                                    RadioButton btn2 = (RadioButton)dialogView.findViewById(R.id.dialog_selection2);
+                                    RadioButton btn3 = (RadioButton)dialogView.findViewById(R.id.dialog_selection3);
+                                    String reason= edit_name.getText().toString();
+                                    int checkedId = rg.getCheckedRadioButtonId();
+
+                                    // unchecked
+                                    if(checkedId <0){
+                                        Toast.makeText(context, "이유 한가지를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(btn3.isChecked() && reason.trim().length() <=0){
+                                        Toast.makeText(context, "사유를 작성해주세요.", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    else {
+                                        Toast.makeText(context, "감사합니다.", Toast.LENGTH_SHORT).show();
+                                        // send data!
+                                        String value = "";
+                                        if(btn0.isChecked()) value = "0";
+                                        else if(btn1.isChecked()) value = "1";
+                                        else if(btn2.isChecked()) value = "2";
+                                        else if(btn3.isChecked()) value = "3";
+
+                                        if(value.compareTo("3")==0)
+                                            socketM.sendReason(items_all.get(position).getChildID(),position,"3:"+reason.toString());
+                                        else
+                                            socketM.sendReason(items_all.get(position).getChildID(),position, value);
+                                        dialog.dismiss();
+                                    }
+                                }
+                            };
+                            dialog.show();
+                            Button btn = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                            btn.setOnClickListener(override_listender);
+
+                        }
+
+                    }
+                };
+
+                View.OnClickListener teacher_radio_listener = new View.OnClickListener(){
+                    public void onClick(View v) {
+                        //viewholderfinal.teacher_tablerow.setVisibility(TableRow.VISIBLE);
+                        //viewholderfinal.spouse_tablerow.setVisibility(TableRow.VISIBLE);
+
+                        if(viewholderfinal.teacherRadioGroup.getCheckedRadioButtonId() <0 ) { // if unchecked , value is 9
+                            items.get(position).setTeacher_clicked(9);
+                        }
+                        else{
+                            for(int i=0 ; i< 4 ; i++){
+                                if(viewholderfinal.teacherButtons[i].isChecked()){
+                                    items.get(position).setTeacher_clicked(i);
+                                    socketM.setTimer(position, items_all.get(position).getChildID() , TIMEOUT_STRING_HOUR , "TEACHER");
+                                }
+                            }
+                        }
+                        socketM.setTcpIpResult(MainActivity.USERTYPE, MySocketManager.SET_DATA, items_all , items, MySocketManager.SET_TEACHER_DATA);
                     }
                 };
 
@@ -440,6 +518,12 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                 holder.normalButtons[2].setOnClickListener(first_radio_listener);
                 holder.normalButtons[3].setOnClickListener(first_radio_listener);
 
+                holder.teacherButtons[0].setOnClickListener(teacher_radio_listener);
+                holder.teacherButtons[1].setOnClickListener(teacher_radio_listener);
+                holder.teacherButtons[2].setOnClickListener(teacher_radio_listener);
+                holder.teacherButtons[3].setOnClickListener(teacher_radio_listener);
+
+                /*
                 View.OnClickListener checked_listener_asking_teacher = new View.OnClickListener(){
                     public void onClick(View v) {
                         if(viewholderfinal.q_ask_teacher.isChecked()){
@@ -450,6 +534,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                     }
                 };
                 holder.q_ask_teacher.setOnClickListener(checked_listener_asking_teacher);
+                */
 
                 // set radio button based on Clicked value
                 if (items.get(position).getClicked_radio() < 4) {
@@ -457,7 +542,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                 } else
                     holder.myRadioGroup.clearCheck();
 
-                if(items.get(position).getTeacher_clicked() <2) {
+                if(items.get(position).getTeacher_clicked() <4) {
                     holder.teacherButtons[items.get(position).getTeacher_clicked()].setChecked(true);
                 }
                 else  holder.teacherRadioGroup.clearCheck();
@@ -484,7 +569,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
         CheckBox q_ask_teacher; CheckBox q_ask_spouse;
         RadioButton[] normalButtons = new RadioButton[4]; RadioButton[] additionButtons = new RadioButton[2];
         RadioButton[] spouseButtons = new RadioButton[4]; RadioButton[] spouseAdditionButtons = new RadioButton[2];
-        RadioButton[] teacherButtons = new RadioButton[2]; RadioButton[] teacherAdditionButtons = new RadioButton[2];
+        RadioButton[] teacherButtons = new RadioButton[4]; RadioButton[] teacherAdditionButtons = new RadioButton[2];
         TableRow myanswer_tablerow;
         RadioGroup myRadioGroup; RadioGroup teacherRadioGroup; RadioGroup spouseRadioGroup;
 
@@ -515,7 +600,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
 
             normalButtons[0] = (RadioButton) itemView.findViewById(R.id.my_radio0); normalButtons[1] = (RadioButton) itemView.findViewById(R.id.my_radio1); normalButtons[2] = (RadioButton) itemView.findViewById(R.id.my_radio2);normalButtons[3] = (RadioButton) itemView.findViewById(R.id.my_radio3);
             spouseButtons[0] = (RadioButton) itemView.findViewById(R.id.spouse_radio0); spouseButtons[1] = (RadioButton) itemView.findViewById(R.id.spouse_radio1); spouseButtons[2] = (RadioButton) itemView.findViewById(R.id.spouse_radio2);spouseButtons[3] = (RadioButton) itemView.findViewById(R.id.spouse_radio3);
-            teacherButtons[0] = (RadioButton) itemView.findViewById(R.id.teacher_radio1); teacherButtons[1] = (RadioButton) itemView.findViewById(R.id.teacher_radio2);
+            teacherButtons[0] = (RadioButton) itemView.findViewById(R.id.teacher_radio0); teacherButtons[1] = (RadioButton) itemView.findViewById(R.id.teacher_radio1); teacherButtons[2] = (RadioButton) itemView.findViewById(R.id.teacher_radio2); teacherButtons[3] = (RadioButton) itemView.findViewById(R.id.teacher_radio3);
 
             additionButtons[0] = (RadioButton) itemView.findViewById(R.id.self_myradio_0); additionButtons[1] = (RadioButton) itemView.findViewById(R.id.self_myradio_1);
             spouseAdditionButtons[0] = (RadioButton) itemView.findViewById(R.id.self_spouse_radio0); spouseAdditionButtons[1] = (RadioButton) itemView.findViewById(R.id.self_spouse_radio1);

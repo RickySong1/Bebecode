@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class CheckFragment extends Fragment {
     public static final int QUESTION_ANSWER_CHECKED = 1;
     public static final int QUESTION_ANSWER_UNCHECKED = 2;
     public static String CHILDID;
+    public static String CHILD_NAME;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,8 +63,6 @@ public class CheckFragment extends Fragment {
     TextView progressbar_title;
     TextView progress_father_name;
     TextView progress_mother_name;
-
-
 
     public static FlingRecyclerView recyclerView;
     RecyclerView.Adapter mAdapter;
@@ -78,6 +78,7 @@ public class CheckFragment extends Fragment {
     int selected_position;
     CustomSpinnerAdapter customSpinnerAdapter;
     public static Spinner sp_year;
+    public static boolean isShortProblem = false;
 
     public CheckFragment() {
         // Required empty public constructor
@@ -221,9 +222,18 @@ public class CheckFragment extends Fragment {
                                 _items.get(i).setHide(true);
                         }
                         break;
-                    case 3: case 4:case 5: case 6: case 7:case 8:  // 대,소,인지
+                    case 3: case 4:case 5: case 6: case 7:  // 대,소,인지
                         for(int i=0 ; i < _items.size() ; i++) {
-                            if ( _items.get(i).getQuestion_type() == position-3){
+                            if ( _items.get(i).getQuestion_type() == position-3 ){
+                                _items.get(i).setHide(false);
+                            }
+                            else
+                                _items.get(i).setHide(true);
+                        }
+                        break;
+                    case 8: // 자조
+                        for(int i=0 ; i < _items.size() ; i++) {
+                            if ( _items.get(i).getQuestion_type() == position-3  && !isShortProblem){
                                 _items.get(i).setHide(false);
                             }
                             else
@@ -443,11 +453,16 @@ public class CheckFragment extends Fragment {
                     }
                 }else if(position == 8){ //
                     languages.remove(position);
-                    if( amIfather() ){
-                        languages.add(position,"6. 자조 ("+ Integer.toString(father_done)+"/"+Integer.toString(_items_shown.size())+")");
-                    }else if (amImother()) {
-                        languages.add(position,"6. 자조 ("+ Integer.toString(mother_done)+"/"+Integer.toString(_items_shown.size())+")");
-                    }else {
+                    if(isShortProblem){
+                        languages.add("─────");
+                    }
+                    else {
+                        if (amIfather()) {
+                            languages.add(position, "6. 자조 (" + Integer.toString(father_done) + "/" + Integer.toString(_items_shown.size()) + ")");
+                        } else if (amImother()) {
+                            languages.add(position, "6. 자조 (" + Integer.toString(mother_done) + "/" + Integer.toString(_items_shown.size()) + ")");
+                        } else {
+                        }
                     }
                 }
 
@@ -512,6 +527,7 @@ public class CheckFragment extends Fragment {
             if(list_itemArrayList.size() > 1 ) {
                 month = list_itemArrayList.get(0).getMonth();
                 myMonthQuestion = fileM.getMonthQuestions(month);
+                isShortProblem = myMonthQuestion.isShortMonth();
                 _id = list_itemArrayList.get(0).getId();
                 CHILDID = _id;
 
@@ -528,6 +544,7 @@ public class CheckFragment extends Fragment {
                 if(list_itemArrayList.size() > 1 ) {
                     mItemsDown = 0 ;
                     CheckFragment._items = DevelInputParent.getBabyListCard(_id, myMonthQuestion , false, MainActivity.USERTYPE , false);
+                    // delete 자조 problem
                     mItemsDown = 1;
                 }
 
@@ -541,16 +558,27 @@ public class CheckFragment extends Fragment {
 
             progressbar.setVisibility(ProgressBar.GONE);
             txtName.setText(list_itemArrayList.get(0).getName());
+            CHILD_NAME = list_itemArrayList.get(0).getName();
             txtStatus.setText(list_itemArrayList.get(0).getStatus());
-
             DateHandler aa = new DateHandler();
+
+            if(isShortProblem && CheckFragment._items.size() > 40){
+                while(CheckFragment._items.size() > 40){
+                    _items.remove(40);
+                }
+            }
 
             mAdapter = new RecyclerAdapterHorizontal(getContext(), CheckFragment._items, CheckFragment. _items_shown,  R.layout.devel_input_form_hori , aa);
             recyclerView.setAdapter(mAdapter);
 
             // initialize spinner
             languages.add("풀지않은 문제"); languages.add("의견차이 확인"); languages.add("─────"); languages.add("1. 대근육운동"); languages.add("2. 소근육운동");
-            languages.add("3. 인지"); languages.add("4. 언어"); languages.add("5. 사회성"); languages.add("6. 자조"); languages.add("─────"); languages.add("─────");
+            languages.add("3. 인지"); languages.add("4. 언어"); languages.add("5. 사회성");
+            if(isShortProblem)
+                languages.add("─────");
+            else
+                languages.add("6. 자조");
+            languages.add("─────"); languages.add("─────");
 
             for( int ttt = 0 ; ttt< languages.size() ; ttt++){
                 switch(ttt){
@@ -583,9 +611,18 @@ public class CheckFragment extends Fragment {
                                 _items.get(i).setHide(true);
                         }
                         break;
-                    case 3: case 4:case 5: case 6: case 7:case 8:  // 대,소,인지
+                    case 3: case 4:case 5: case 6: case 7:  // 대,소,인지
                         for(int i=0 ; i < _items.size() ; i++) {
                             if ( _items.get(i).getQuestion_type() == ttt-3){
+                                _items.get(i).setHide(false);
+                            }
+                            else
+                                _items.get(i).setHide(true);
+                        }
+                        break;
+                    case 8:
+                        for(int i=0 ; i < _items.size() ; i++) {
+                            if ( _items.get(i).getQuestion_type() == ttt-3 && !isShortProblem ){
                                 _items.get(i).setHide(false);
                             }
                             else

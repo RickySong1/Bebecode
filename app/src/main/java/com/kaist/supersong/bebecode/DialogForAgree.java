@@ -28,16 +28,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import DataStructure.BabyListData;
 import DataStructure.ChatAdapter;
+import mymanager.MyFileManager;
 import mymanager.MySocketManager;
+import questions.MonthQuestions;
 
 /**
  * Created by SuperSong on 2017-07-24.
@@ -54,13 +62,15 @@ public class DialogForAgree extends Dialog {
     private int recent_chat_count;
     String print_date = "initial";
     int date_count = 0;
+    int image_on;
 
 
-    public DialogForAgree(Context context , int _position) {
+    public DialogForAgree(Context context , int _position , int _image_on) {
         super(context);
         p_act = (Activity)context;
         position = _position;
         learning = true;
+        image_on = _image_on;
     }
 
     @Override
@@ -172,7 +182,14 @@ public class DialogForAgree extends Dialog {
                 copyText = (EditText) kakao_dialog.findViewById(R.id.copyText);
                 btn = (Button) kakao_dialog.findViewById(R.id.img_message_btn);
 
-                copyText.setText("우리 아이 발달검사 문항을 풀어보고 있습니다. 어떻게 생각하시나요?' "+RecyclerAdapterHorizontal.items.get(position).getQuestion()+"' (1-못하는 편, 2-할 수 있는편 )" );
+                MyFileManager fileM;
+                fileM = new MyFileManager();
+                ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
+                fileM.getChildList(list_itemArrayList);
+                String month = list_itemArrayList.get(0).getMonth();
+                MonthQuestions myMonthQuestion = fileM.getMonthQuestions(month);
+
+                copyText.setText("우리 아이 발달검사 문항을 풀어보고 있습니다. 아래 링크에 나오는 문항에 답변해주시면 감사드리겠습니다.\n http://143.248.134.177/main.php?name="+CheckFragment.CHILD_NAME+"&id="+CheckFragment.CHILDID+"&q_f="+myMonthQuestion.getFileName()+"&q_n="+RecyclerAdapterHorizontal.items.get(position).getQuestion_number().replaceAll(" ",""));
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -196,6 +213,11 @@ public class DialogForAgree extends Dialog {
             }
         });
 
+        if(image_on==9){
+            image_upload.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image_upload,0,0,0);
+        }else{
+            image_upload.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image_upload_new,0,0,0);
+        }
 
         image_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -338,8 +360,6 @@ public class DialogForAgree extends Dialog {
                 if(i >  recent_chat_count){
                     //Log.e("zz222",Integer.toString(i)+" "+Integer.toString(recent_chat_count) + " " +result_comment.split("@@").length);
 
-                    Log.e("zz_result",result_comment);
-
                     if( result_comment.split("@@")[i].split(" ")[1].substring(1).compareTo(print_date) == 0){ // the same date nothing
                     }
                     else{
@@ -352,15 +372,12 @@ public class DialogForAgree extends Dialog {
                         //Log.e("zz333",Integer.toString(i)+" "+Integer.toString(recent_chat_count) + " " +result_comment.split("@@").length);
 
                         if(i > recent_chat_count) {
-                            Log.e("zz22", result_comment.split("@@")[i].split(" : ")[1]);
                             dialog_comment.add(result_comment.split("@@")[i].split(" : ")[1], 1);
                             //Log.e("zz444",Integer.toString(i)+" "+Integer.toString(recent_chat_count) + " " +result_comment.split("@@").length+" "+result_comment.split("@@")[i].split(" : ")[1]);
                         }
                     }
                     else {
-                        Log.e("zz33", result_comment.split("@@")[i].split(" : ")[1]);
                         dialog_comment.add(result_comment.split("@@")[i].split(" : ")[1], 0);
-                        Log.e("zz44", result_comment.split("@@")[i].split(" : ")[1]);
                         //Log.e("zz555",Integer.toString(i)+" "+Integer.toString(recent_chat_count) + " " +result_comment.split("@@").length +" "+result_comment.split("@@")[i].split(" : ")[1]);
                     }
                 }
@@ -417,6 +434,7 @@ public class DialogForAgree extends Dialog {
 
             if(RecyclerAdapterHorizontal.items.get(position).getPicture_source()>=0 && RecyclerAdapterHorizontal.items.get(position).getPicture_source() <=2) {  // image
                 isImage = true;
+                /*
                 final String baseShoppingURL =  RecyclerAdapterHorizontal.uploadURL + RecyclerAdapterHorizontal.items.get(position).getSourceName();
                 Thread mThread = new Thread(){
                     @Override
@@ -442,6 +460,7 @@ public class DialogForAgree extends Dialog {
                 catch (InterruptedException e){
 
                 }
+                */
             }
             else if(RecyclerAdapterHorizontal.items.get(position).getPicture_source()>=3 && RecyclerAdapterHorizontal.items.get(position).getPicture_source() <=5){  // video
                 isImage = false;
@@ -454,13 +473,19 @@ public class DialogForAgree extends Dialog {
 
         @Override
         protected void onPostExecute(String result) {
+
+
             if(noData){
                 img.setVisibility(ImageView.VISIBLE);
                 vv.setVisibility(VideoView.GONE);
             }
             else if(isImage) {
+
+                final String baseShoppingURL =  RecyclerAdapterHorizontal.uploadURL + RecyclerAdapterHorizontal.items.get(position).getSourceName();
+                Picasso.with(context).load(baseShoppingURL).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(img);
+
                 img.setVisibility(ImageView.VISIBLE);
-                img.setImageBitmap(bitmap);
+                //img.setImageBitmap(bitmap);
 
                 vv.setVisibility(VideoView.GONE);
             }

@@ -8,10 +8,17 @@ import java.util.ArrayList;
 
  public class  MonthQuestions {
 
-        MonthQuestions(){
+    private String filename;
 
-        }
+    public MonthQuestions() {
+    }
 
+    MonthQuestions( String _filename){
+        filename = _filename;
+    }
+    public String getFileName() {
+        return filename;
+    }
     private ArrayList<String[]> questionList;
     private ArrayList<int[]> answerList;
     private  ArrayList<Integer> teacherImportantPosition;
@@ -23,4 +30,9 @@ import java.util.ArrayList;
         return answerList;
     }
     public ArrayList<Integer> getTeacherImportantPosition() { return teacherImportantPosition;}
+
+    public boolean isShortMonth(){
+        return false;
+    }
+
 }

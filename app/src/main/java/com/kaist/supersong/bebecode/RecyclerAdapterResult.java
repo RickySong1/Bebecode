@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,10 +42,13 @@ public class RecyclerAdapterResult extends RecyclerView.Adapter<RecyclerAdapterR
     final static int resultGraphView = 0;
     final static int resultConflict = 1;
 
-    public RecyclerAdapterResult(Context context, Object items, int item_layout) {
+    Boolean isShort;
+
+    public RecyclerAdapterResult(Context context, Object items, int item_layout , Boolean _isShort) {
         this.context=context;
         this.item_layout=item_layout;
         this.result_items=  (List<BabyResultCard>) items;
+        this.isShort = _isShort;
     }
 
     @Override
@@ -266,6 +270,11 @@ public class RecyclerAdapterResult extends RecyclerView.Adapter<RecyclerAdapterR
                     resultRows[3] = (TableRow) itemView.findViewById(R.id.tableRowResult3);
                     resultRows[4] = (TableRow) itemView.findViewById(R.id.tableRowResult4);
                     resultRows[5] = (TableRow) itemView.findViewById(R.id.tableRowResult5);
+
+                    if(isShort){
+                        resultRows[5].setVisibility(ProgressBar.GONE);
+                    }
+
                     cardview=(CardView)itemView.findViewById(R.id.cardview);
                     msg_to_spouse = (Button) itemView.findViewById(R.id.button_msg_to_spouse);
 

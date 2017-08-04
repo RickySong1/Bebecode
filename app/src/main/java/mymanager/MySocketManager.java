@@ -2,6 +2,8 @@ package mymanager;
 
 import android.util.Log;
 
+import com.kaist.supersong.bebecode.CheckFragment;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -10,10 +12,12 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import DataStructure.BabyListCard;
+import DataStructure.BabyListData;
 
 /**
  * Created by SuperSong on 2017-03-04.
@@ -30,6 +34,7 @@ public class MySocketManager {
     public static final int SET_REQEUST_ASKING_TEACHER = 1;
     public static final int SET_DATA_MY_RESULT = 2;
     public static final int SET_PICTURE = 3;
+    public static final int SET_TEACHER_DATA = 4;
     //public static final int TARGET_ASKING_SPOUSE = 2;
 
     public static final int GET_MY_DATA = 0;
@@ -45,6 +50,7 @@ public class MySocketManager {
     public static final int GET_COMMENT_ON = 10;
     public static final int GET_NOTI = 11;
     public static final int GET_RECENT_PICTURE = 12;
+    public static final int GET_OPEN_CHAT = 13;
 
     BufferedReader br;
     PrintWriter out;
@@ -290,6 +296,9 @@ public class MySocketManager {
             case GET_RECENT_PICTURE:
                 send_message = pre_message+"##GET_RECENT_PICTURE##"+childID+"##"+userType+"##";
                 break;
+            case GET_OPEN_CHAT:
+                send_message = pre_message+"##GET_OPEN_CHAT##"+childID+"##"+userType+"##";
+                break;
         }
 
 
@@ -441,6 +450,56 @@ public class MySocketManager {
         }
     }
 
+    public void openChat(String childID, int position){
+        try {
+            socket = new Socket(IP_ADDRESS , PORT);
+            br = new BufferedReader(new InputStreamReader( socket.getInputStream()));
+            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter( socket.getOutputStream())), true);
+
+            String send_message = "%%" + userType +"%%" + "##" + "SET_OPEN_CHAT" + "##" + childID + "##"+ Integer.toString(position) +"##";
+            out.println(send_message);
+
+        } catch(Exception e) {
+            Log.e("Socket",e.toString());
+        } finally {
+            try {
+                if(socket!=null)
+                    socket.close();
+                if(out !=null)
+                    out.close();
+                if (br !=null)
+                    br.close();
+            } catch(Exception er) {
+                Log.e("Socket",er.toString());
+            }
+        }
+    }
+
+    public void sendReason(String childID, int position, String selected_value){
+        try {
+            socket = new Socket(IP_ADDRESS , PORT);
+            br = new BufferedReader(new InputStreamReader( socket.getInputStream()));
+            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter( socket.getOutputStream())), true);
+
+            String send_message = "%%" + userType +"%%" + "##" + "SET_REASON" + "##" + childID + "##" +Integer.toString(position) +"##" + selected_value +"##";
+
+            out.println(send_message);
+
+        } catch(Exception e) {
+            Log.e("Socket",e.toString());
+        } finally {
+            try {
+                if(socket!=null)
+                    socket.close();
+                if(out !=null)
+                    out.close();
+                if (br !=null)
+                    br.close();
+            } catch(Exception er) {
+                Log.e("Socket",er.toString());
+            }
+        }
+    }
 
     public void setTimer(int position , String childID , String selected_value , String userType){
 
@@ -511,6 +570,14 @@ public class MySocketManager {
                     if(  (i+1)%8 ==0){ result_data =  result_data.concat("@@"); }
                     else  result_data = result_data.concat(" ");
                 }
+
+            case SET_TEACHER_DATA:
+                target_user = "TEACHER";
+                for(int i=0 ; i<items.size() ; i++){
+                    result_data = result_data.concat(Integer.toString(items.get(i).getTeacher_clicked()));
+                    if(  (i+1)%8 ==0){ result_data =  result_data.concat("@@"); }
+                    else  result_data = result_data.concat(" ");
+                }
                 break;
         }
 
@@ -522,6 +589,13 @@ public class MySocketManager {
                 }
                 result_data = result_data.concat("@@");
             }
+
+        if(CheckFragment.isShortProblem){
+            if(items.size() <= 40){
+                result_data = result_data+"9 9 9 9 9 9 9 9@@";
+            }
+        }
+
 
         try {
             socket = new Socket(IP_ADDRESS , PORT);

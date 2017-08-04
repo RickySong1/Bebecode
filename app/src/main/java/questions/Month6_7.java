@@ -5,4 +5,12 @@ package questions;
  */
 
 public class Month6_7 extends MonthQuestions{
+    private String filename;
+
+    public String getFileName() {
+        return filename;
+    }
+    public Month6_7(String file){
+        filename = file;
+    }
 }

@@ -29,7 +29,7 @@
             android:gravity="center"
             android:onClick="textViewClick"
             android:longClickable="true"
-            android:text="김봉수"
+            android:text="Loading.."
             />
 
         <TextView

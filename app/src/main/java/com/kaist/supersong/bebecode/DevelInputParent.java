@@ -110,6 +110,7 @@ public class DevelInputParent extends Activity {
         int [][] picturecheck = parsingResultIntegerData(socketM.getTcpIpResult(userType , id , MySocketManager.GET_PICTURE));
         String [][] pictureName = parsingResultStringData(socketM.getTcpIpResult(userType , id , MySocketManager.GET_PIC_NAME));
         int [][] commentcheck = parsingResultIntegerData(socketM.getTcpIpResult(userType , id , MySocketManager.GET_COMMENT_ON));
+        int [][] newcheck = parsingResultIntegerData(socketM.getTcpIpResult(userType , id , MySocketManager.GET_OPEN_CHAT));
 
         for(int i=0; i< MainActivity.numOfSections ; i++){
             for(int j=0 ; j< MainActivity.numOfProblemsinSection ; j++){
@@ -125,18 +126,21 @@ public class DevelInputParent extends Activity {
                         }
                     }
                     if (checkHide && !teacher_important && (checkConflict(teacherQuestionAnswers, spouseQuestionAnswers, i, j) == false) &&  askTeacher[i][j] < 1) {
-                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), true,picturecheck[i][j], pictureName[i][j], commentcheck[i][j]));
+                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), true,picturecheck[i][j], pictureName[i][j], commentcheck[i][j] , newcheck[i][j]));
                     } else
-                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), false,picturecheck[i][j], pictureName[i][j], commentcheck[i][j]));
+                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), false,picturecheck[i][j], pictureName[i][j], commentcheck[i][j], newcheck[i][j]));
                 }
                 else {
                     if (checkHide && ((checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j) == false) && (myQuestionAnswers[i][j] < 4 && myQuestionAnswers[i][j] >= 0)) && askedFromSpouse[i][j] < 1) {
-                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), true,picturecheck[i][j], pictureName[i][j], commentcheck[i][j]));
+                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), true,picturecheck[i][j], pictureName[i][j], commentcheck[i][j], newcheck[i][j]));
                     } else
-                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), false,picturecheck[i][j], pictureName[i][j], commentcheck[i][j]));
+                        _result.add(new BabyListCard((i*MainActivity.numOfProblemsinSection) + j, question_n, myMonthQuestion.getQuestionList().get(i)[j], i, askTeacher[i][j], askSpouse[i][j], myQuestionAnswers[i][j], spouseQuestionAnswers[i][j], teacherQuestionAnswers[i][j], id, askedFromSpouse[i][j] > 0, checkConflict(myQuestionAnswers, spouseQuestionAnswers, i, j), false,picturecheck[i][j], pictureName[i][j], commentcheck[i][j], newcheck[i][j]));
                 }
             }
         }
+
+
+
         return _result;
     }
 

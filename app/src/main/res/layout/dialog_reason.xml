@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+
+
+
+
+        <RadioGroup
+
+            android:id="@+id/dialog_reasion_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RadioButton
+                android:id="@+id/dialog_selection0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="배우자와의 대화, 채팅"
+                android:textSize="15sp"/>
+
+            <RadioButton
+                android:id="@+id/dialog_selection1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="배우자가 보여준 사진/영상"
+                android:textSize="15sp"/>
+
+            <RadioButton
+                android:id="@+id/dialog_selection2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="지인의 조언/의견 (어린이집 선생님, 조부모님 등)"
+                android:textSize="15sp"/>
+
+            <RadioButton
+                android:id="@+id/dialog_selection3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기타 (상황을 설명해주세요.)"
+                android:textSize="15sp"/>
+
+        </RadioGroup>
+
+
+        <EditText
+                android:id="@+id/dialog_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+</LinearLayout>
+

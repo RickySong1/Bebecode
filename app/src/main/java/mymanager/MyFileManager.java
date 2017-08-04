@@ -70,13 +70,47 @@ public class MyFileManager {
         saveFiles[18] = "month_60_65.txt"; saveFiles[19] = "month_66_71.txt";
 
         monthQuestions = new MonthQuestions[20];
-        monthQuestions[0] = new Month4_5(); monthQuestions[1] = new Month6_7(); monthQuestions[2] = new Month8_9(); monthQuestions[3] = new Month10_11(); monthQuestions[4] = new Month12_13(); monthQuestions[5] = new Month14_15();
-        monthQuestions[6] = new Month16_17(); monthQuestions[7] = new Month18_19(); monthQuestions[8] = new Month20_21(); monthQuestions[9] = new Month22_23(); monthQuestions[10] = new Month24_26(); monthQuestions[11] = new Month27_29(); monthQuestions[12] = new Month30_32();
-        monthQuestions[13] = new Month33_35(); monthQuestions[14] = new Month36_41(); monthQuestions[15] = new Month42_47(); monthQuestions[16] = new Month48_53(); monthQuestions[17] = new Month54_59(); monthQuestions[18] = new Month60_65();
-        monthQuestions[19] = new Month66_71();
+        monthQuestions[0] = new Month4_5(saveFiles[0]); monthQuestions[1] = new Month6_7(saveFiles[1]); monthQuestions[2] = new Month8_9(saveFiles[2]); monthQuestions[3] = new Month10_11(saveFiles[3]);
+        monthQuestions[4] = new Month12_13(saveFiles[4]); monthQuestions[5] = new Month14_15(saveFiles[5]);
+        monthQuestions[6] = new Month16_17(saveFiles[6]); monthQuestions[7] = new Month18_19(saveFiles[7]); monthQuestions[8] = new Month20_21(saveFiles[8]); monthQuestions[9] = new Month22_23(saveFiles[9]);
+        monthQuestions[10] = new Month24_26(saveFiles[10]); monthQuestions[11] = new Month27_29(saveFiles[11]); monthQuestions[12] = new Month30_32(saveFiles[12]);
+        monthQuestions[13] = new Month33_35(saveFiles[13]); monthQuestions[14] = new Month36_41(saveFiles[14]); monthQuestions[15] = new Month42_47(saveFiles[15]);
+        monthQuestions[16] = new Month48_53(saveFiles[16]); monthQuestions[17] = new Month54_59(saveFiles[17]); monthQuestions[18] = new Month60_65(saveFiles[18]); monthQuestions[19] = new Month66_71(saveFiles[19]);
 
         //initNewFile();
         socketM = new MySocketManager(getUserType());
+    }
+
+    public void writeMonthQuestiontoFile(){
+
+        // MonthQuestion
+        for(int i=0 ; i< monthQuestions.length ; i++){
+            if(monthQuestions[i].getAnswerList() != null){
+                // section
+                for(int j=0 ; j< 6 ; j++){
+                    // each question
+                    for(int z=0 ; z<8 ; z++){
+                        String tempFileString = saveFolderLocation +"/"+saveFiles[i];
+                        File tempFile = new File(tempFileString);
+
+                        String get_message = monthQuestions[i].getQuestionList().get(j)[z];
+
+                        PrintWriter pw = null;
+                        try{  // line add
+                            pw = new PrintWriter(new FileWriter(tempFileString,true));
+
+                            pw.write(get_message);
+                            pw.write("\n");
+
+                            pw.close();
+                        }
+                        catch(Exception e){
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

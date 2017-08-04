@@ -126,8 +126,8 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="3"
-                    android:secondaryProgress="6"
+                    android:progress="0"
+                    android:secondaryProgress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -142,7 +142,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="7"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -167,7 +167,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -182,7 +182,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -207,7 +207,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -222,7 +222,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -247,7 +247,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -262,7 +262,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -287,7 +287,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -302,7 +302,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -328,7 +328,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="4.5"
                     android:gravity="center"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />
@@ -343,7 +343,7 @@
                     android:layout_weight="4.5"
                     android:gravity="center"
                     android:max="8"
-                    android:progress="5"
+                    android:progress="0"
                     android:visibility="visible"
                     android:progressDrawable="@drawable/progress_bar"/>
                 />

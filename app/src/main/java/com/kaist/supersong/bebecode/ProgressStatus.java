@@ -232,7 +232,8 @@ public class ProgressStatus extends Fragment {
         ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
         fileM.getChildList(list_itemArrayList);
         String birth_s = fileM.getMonthString(list_itemArrayList.get(0).getMonth());
-        if( ((MonthQuestions)fileM.getMonthQuestions(list_itemArrayList.get(0).getMonth())).isShortMonth()){ // hide jajo
+        final boolean isShort = ((MonthQuestions)fileM.getMonthQuestions(list_itemArrayList.get(0).getMonth())).isShortMonth();
+        if(isShort){ // hide jajo
             progress_mother[5].setVisibility(ProgressBar.GONE);
             progress_father[5].setVisibility(ProgressBar.GONE);
             textJajo.setVisibility(TextView.GONE);
@@ -269,8 +270,16 @@ public class ProgressStatus extends Fragment {
                     for(int i=0; i< CheckFragment._items.size() ; i++){
                         _items.add(CheckFragment._items.get(i));
                     }
-                    if ( _items.size() == 48)
-                        calcuateProgressBar();
+
+                    if(isShort){
+                        if (_items.size() == 40)
+                            calcuateProgressBar();
+                    }
+                    {
+                        if (_items.size() == 48)
+                            calcuateProgressBar();
+                    }
+
                 }
             }
         };

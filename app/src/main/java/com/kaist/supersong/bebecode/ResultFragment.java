@@ -19,6 +19,8 @@ import mymanager.MySocketManager;
 import questions.Month27_29;
 import questions.MonthQuestions;
 
+import static com.kaist.supersong.bebecode.CheckFragment.CHILDID;
+import static com.kaist.supersong.bebecode.CheckFragment.CHILD_NAME;
 import static com.kaist.supersong.bebecode.CheckFragment._items;
 import static com.kaist.supersong.bebecode.CheckFragment.fileM;
 import static com.kaist.supersong.bebecode.MainActivity.USERTYPE;
@@ -83,21 +85,20 @@ public class ResultFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         List<BabyResultCard> items=new ArrayList<>();
-        ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
-        fileM.getChildList(list_itemArrayList);
+
         Boolean isShort = false;
 
-        if(list_itemArrayList.size() >0) {
-            String month = list_itemArrayList.get(0).getMonth();
+
+            String month = CheckFragment.CHILD_MONTH;
             MonthQuestions myMonthQuestion = fileM.getMonthQuestions(month);
             isShort = myMonthQuestion.isShortMonth();
-            String _id = list_itemArrayList.get(0).getId();
+            String _id = CheckFragment.CHILDID;
             MySocketManager socketM = new MySocketManager(USERTYPE);
 
             TextView text_temp = (TextView) rootView.findViewById(R.id.develinput_name);
-            text_temp.setText(list_itemArrayList.get(0).getName());
+            text_temp.setText(CHILD_NAME);
             text_temp = (TextView) rootView.findViewById(R.id.develinput_status);
-            text_temp.setText(list_itemArrayList.get(0).getStatus());
+            text_temp.setText(CheckFragment.CHILD_BIRTH);
 
             int [] checkResult = new int[6];
 
@@ -119,7 +120,7 @@ public class ResultFragment extends Fragment {
             }
 
             items.add(new BabyResultCard(month+"개월", checkResult, myMonthQuestion ) );
-        }
+
 
         // need month , result , month object
         //items.add(new BabyResultCard("결과Sample A",new int[]{22,15,14,16,18,15} , new Month27_29()) );

@@ -158,11 +158,15 @@ public class InitialActivity extends Activity {
         alert_confirm.setView(et);
         alert_confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+
+                if(et.getText().toString().length() < 1)
+                    return ;
+
                 String value = et.getText().toString();
                 MySocketManager socketM = new MySocketManager(userstring);
                 String get_message = socketM.getChildInfo(value);
 
-                if(get_message.contains("##ERROR")) {  // if child is selected well
+                if(get_message != null && get_message.contains("##ERROR")) {  // if child is selected well
                     Toast.makeText(getApplicationContext() , "아이 정보를 찾을 수 없습니다. ID를 확인해주세요.", Toast.LENGTH_SHORT).show();
                     return ;
                 }
@@ -237,7 +241,8 @@ public class InitialActivity extends Activity {
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            if (get_msg.contains("ALIVE")){
+
+            if (get_msg !=null && get_msg.contains("ALIVE")){
                 checking.dismiss();
 
                 if(fileM.getMyInfo() && fileM.isChildAdded() ){

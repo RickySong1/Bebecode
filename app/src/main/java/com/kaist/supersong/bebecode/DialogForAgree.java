@@ -184,9 +184,7 @@ public class DialogForAgree extends Dialog {
 
                 MyFileManager fileM;
                 fileM = new MyFileManager();
-                ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
-                fileM.getChildList(list_itemArrayList);
-                String month = list_itemArrayList.get(0).getMonth();
+                String month = CheckFragment.CHILD_MONTH;
                 MonthQuestions myMonthQuestion = fileM.getMonthQuestions(month);
 
                 copyText.setText("우리 아이 발달검사 문항을 풀어보고 있습니다. 아래 링크에 나오는 문항에 답변해주시면 감사드리겠습니다.\n http://143.248.134.177/main.php?name="+CheckFragment.CHILD_NAME+"&id="+CheckFragment.CHILDID+"&q_f="+myMonthQuestion.getFileName()+"&q_n="+RecyclerAdapterHorizontal.items.get(position).getQuestion_number().replaceAll(" ",""));

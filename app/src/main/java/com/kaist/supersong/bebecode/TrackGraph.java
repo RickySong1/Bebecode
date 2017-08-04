@@ -163,7 +163,6 @@ public class TrackGraph extends Fragment {
 
         String month,_id, birth_s;
         MyFileManager fileM;
-        ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
         MySocketManager socketM;
         MonthQuestions myMonthQuestion;
         int average_delay_score = 0;
@@ -175,10 +174,8 @@ public class TrackGraph extends Fragment {
             super.onPreExecute();
 
             fileM = new MyFileManager();
-            fileM.getChildList(list_itemArrayList);
-            birth_s = fileM.getMonthString(list_itemArrayList.get(0).getMonth());
-            _id = list_itemArrayList.get(0).getId();
-
+            birth_s = fileM.getMonthString(CheckFragment.CHILD_MONTH);
+            _id = CheckFragment.CHILDID;
             socketM = new MySocketManager(fileM.getUserType());
         }
 
@@ -190,19 +187,8 @@ public class TrackGraph extends Fragment {
                 socket_track_data.add(get_message.split(("@@"))[i+1]);
             }
 
-
-            ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
-
-            String month;
-                fileM = new MyFileManager();
-                fileM.getChildList(list_itemArrayList);
-                list_itemArrayList.add(new BabyListData(R.drawable.father," ","아동 추가","0000","10")); // the last item is automatically added
-                if(list_itemArrayList.size() > 1 ) {
-                    month = list_itemArrayList.get(0).getMonth();
-                    myMonthQuestion = fileM.getMonthQuestions(month);
-                    _id = list_itemArrayList.get(0).getId();
-                    isShort = myMonthQuestion.isShortMonth();
-                }
+                myMonthQuestion = fileM.getMonthQuestions(CheckFragment.CHILD_MONTH);
+                isShort = myMonthQuestion.isShortMonth();
 
                 int total_count = 0;
 

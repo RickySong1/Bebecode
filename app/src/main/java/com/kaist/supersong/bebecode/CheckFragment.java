@@ -52,6 +52,8 @@ public class CheckFragment extends Fragment {
     public static final int QUESTION_ANSWER_UNCHECKED = 2;
     public static String CHILDID;
     public static String CHILD_NAME;
+    public static String CHILD_MONTH;
+    public static String CHILD_BIRTH;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -269,6 +271,7 @@ public class CheckFragment extends Fragment {
                     rightArrow.setVisibility(TextView.INVISIBLE);
                 } else rightArrow.setVisibility(TextView.VISIBLE);
 
+                recyclerView.scrollToPosition(0);
 
                 //recyclerView.smoothScrollToPosition(7);
             }
@@ -526,6 +529,7 @@ public class CheckFragment extends Fragment {
 
             if(list_itemArrayList.size() > 1 ) {
                 month = list_itemArrayList.get(0).getMonth();
+                CHILD_MONTH = month;
                 myMonthQuestion = fileM.getMonthQuestions(month);
                 isShortProblem = myMonthQuestion.isShortMonth();
                 _id = list_itemArrayList.get(0).getId();
@@ -559,7 +563,8 @@ public class CheckFragment extends Fragment {
             progressbar.setVisibility(ProgressBar.GONE);
             txtName.setText(list_itemArrayList.get(0).getName());
             CHILD_NAME = list_itemArrayList.get(0).getName();
-            txtStatus.setText(list_itemArrayList.get(0).getStatus());
+            CHILD_BIRTH = list_itemArrayList.get(0).getStatus();
+            txtStatus.setText(CHILD_BIRTH);
             DateHandler aa = new DateHandler();
 
             if(isShortProblem && CheckFragment._items.size() > 40){

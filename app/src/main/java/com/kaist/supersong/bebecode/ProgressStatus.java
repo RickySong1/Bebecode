@@ -229,19 +229,17 @@ public class ProgressStatus extends Fragment {
             progress_mother[i].setMax(8);
         }
 
-        ArrayList<BabyListData> list_itemArrayList = new ArrayList<BabyListData>();
-        fileM.getChildList(list_itemArrayList);
-        String birth_s = fileM.getMonthString(list_itemArrayList.get(0).getMonth());
-        final boolean isShort = ((MonthQuestions)fileM.getMonthQuestions(list_itemArrayList.get(0).getMonth())).isShortMonth();
+        String birth_s = fileM.getMonthString(CheckFragment.CHILD_MONTH);
+        final boolean isShort = ((MonthQuestions)fileM.getMonthQuestions(CheckFragment.CHILD_MONTH)).isShortMonth();
         if(isShort){ // hide jajo
             progress_mother[5].setVisibility(ProgressBar.GONE);
             progress_father[5].setVisibility(ProgressBar.GONE);
             textJajo.setVisibility(TextView.GONE);
         }
-        String my_birth = list_itemArrayList.get(0).getStatus();
+        String my_birth = CheckFragment.CHILD_BIRTH;
         String text_dday="0";
 
-        childid = list_itemArrayList.get(0).getId();
+        childid = CheckFragment.CHILDID;
 
         if( birth_s.compareTo("none") !=0){
             birth_left.setText(birth_s.split("_")[0]+ "개월");

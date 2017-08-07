@@ -252,6 +252,8 @@ public class ProgressStatus extends Fragment {
             Log.e("Counting error",e.toString());
         }
 
+
+        Log.e("zzzbirth_s",birth_s);
         int progressbar_max =  (((int)    Math.ceil((Integer.parseInt(birth_s.split("_")[1]) - Integer.parseInt(birth_s.split("_")[0])) * 30.416)))  ;
         int progressbar_progress =  ((int) Math.ceil((Integer.parseInt(birth_s.split("_")[1]) - Integer.parseInt(birth_s.split("_")[0])) * 30.416)) - Integer.parseInt(text_dday);
 
@@ -282,7 +284,7 @@ public class ProgressStatus extends Fragment {
             }
         };
         mTimer = new Timer();
-        mTimer.schedule(mTask, 1 , 4000);
+        mTimer.schedule(mTask, 1 , 3000);
 
         new TaskImageLoading((RecyclerView)rootView.findViewById(R.id.image_card_recycler_view)).execute();
         new TaskNotificationTextLoad(notification_adapter).execute();

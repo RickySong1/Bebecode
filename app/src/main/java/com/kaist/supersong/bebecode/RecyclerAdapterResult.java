@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,6 +144,8 @@ public class RecyclerAdapterResult extends RecyclerView.Adapter<RecyclerAdapterR
         //final String item=items.get(position);
         //Drawable drawable=context.getResources().getDrawable(item.getImage());
         //holder.image.setBackground(drawable);
+
+        Log.e("ResultTableShow:",Integer.toString((getItemViewType(position))));
 
         switch(getItemViewType(position)){
             case resultConflict:

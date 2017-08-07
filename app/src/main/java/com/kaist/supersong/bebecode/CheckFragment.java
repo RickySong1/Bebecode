@@ -530,10 +530,13 @@ public class CheckFragment extends Fragment {
             if(list_itemArrayList.size() > 1 ) {
                 month = list_itemArrayList.get(0).getMonth();
                 CHILD_MONTH = month;
+                Log.e("zz",month);
                 myMonthQuestion = fileM.getMonthQuestions(month);
                 isShortProblem = myMonthQuestion.isShortMonth();
                 _id = list_itemArrayList.get(0).getId();
                 CHILDID = _id;
+                CHILD_NAME = list_itemArrayList.get(0).getName();
+                CHILD_BIRTH = list_itemArrayList.get(0).getStatus();
 
                 MySocketManager socketM = new MySocketManager(MainActivity.USERTYPE);
                 socketM.setMyCode(CheckFragment.CHILDID, MainActivity.USERTYPE, FirebaseInstanceId.getInstance().getToken());
@@ -562,8 +565,6 @@ public class CheckFragment extends Fragment {
 
             progressbar.setVisibility(ProgressBar.GONE);
             txtName.setText(list_itemArrayList.get(0).getName());
-            CHILD_NAME = list_itemArrayList.get(0).getName();
-            CHILD_BIRTH = list_itemArrayList.get(0).getStatus();
             txtStatus.setText(CHILD_BIRTH);
             DateHandler aa = new DateHandler();
 

@@ -428,6 +428,7 @@ public class WidgetProvider extends AppWidgetProvider {
             if (list_itemArrayList.size() > 1) {
                 _items = DevelInputParent.getBabyListCard(_id, myMonthQuestion, false, usertype, false);
                 result_log = socketM.getTcpIpResult(usertype , _id , MySocketManager.GET_LOG);
+                socketM.sendWidgetUpdate(_id,usertype);
             }
             return null;
         }

@@ -326,10 +326,11 @@ public class MyFileManager {
             String check_month2 = saveFiles[i+1].split("_")[1].trim();
 
             if (  Integer.parseInt(check_month1) <= Integer.parseInt(_thisMonth) && Integer.parseInt(_thisMonth) < Integer.parseInt(check_month2)){
+
                 return check_month1+"_"+check_month2;
             }
         }
-        return "none";
+        return "66_71";
     }
 
     public int getMyMonthIndex(String _thisMonth){  // Return Month Index
@@ -337,11 +338,16 @@ public class MyFileManager {
             String check_month1 = saveFiles[i].split("_")[1].trim();
             String check_month2 = saveFiles[i+1].split("_")[1].trim();
 
+            Log.e("zz111",check_month1);
+            Log.e("zz222",check_month2);
+
             if (  Integer.parseInt(check_month1) <= Integer.parseInt(_thisMonth) && Integer.parseInt(_thisMonth) < Integer.parseInt(check_month2)){
+
+                Log.e("zz333",Integer.toString(i));
                 return i;
             }
         }
-        return -1;
+        return saveFiles.length-1;
     }
 
     public String getMyMonthTestRange(String _thisMonth){  // Return Month Index

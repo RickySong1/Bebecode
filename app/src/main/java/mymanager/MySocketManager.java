@@ -475,6 +475,32 @@ public class MySocketManager {
         }
     }
 
+    public void sendWidgetUpdate(String childID, String _usertype){
+        try {
+            socket = new Socket(IP_ADDRESS , PORT);
+            br = new BufferedReader(new InputStreamReader( socket.getInputStream()));
+            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter( socket.getOutputStream())), true);
+
+            String send_message = "%%" + _usertype +"%%" + "##" + "WIDGET_UPDATE" + "##" + childID + "##" ;
+
+            out.println(send_message);
+
+        } catch(Exception e) {
+            Log.e("Socket",e.toString());
+        } finally {
+            try {
+                if(socket!=null)
+                    socket.close();
+                if(out !=null)
+                    out.close();
+                if (br !=null)
+                    br.close();
+            } catch(Exception er) {
+                Log.e("Socket",er.toString());
+            }
+        }
+    }
+
     public void sendReason(String childID, int position, String selected_value){
         try {
             socket = new Socket(IP_ADDRESS , PORT);

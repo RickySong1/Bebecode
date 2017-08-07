@@ -400,7 +400,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
 
                             final View dialogView= LayoutInflater.from(context).inflate(R.layout.dialog_reason, null, false);
                             AlertDialog.Builder buider= new AlertDialog.Builder(context); //AlertDialog.Builder 객체 생성
-                            buider.setTitle("의견차이를 없앨 수 있게 된 원인을 남겨주세요."); //Dialog 제목
+                            buider.setTitle("의견차이를 줄이는데 유용했던 방법/기능은 무엇인가요?"); //Dialog 제목
                             buider.setIcon(android.R.drawable.ic_dialog_info); //제목옆의 아이콘 이미지(원하는 이미지 설정)
                             buider.setView(dialogView); //위에서 inflater가 만든 dialogView 객체 세팅 (Customize)
                             buider.setCancelable(false);

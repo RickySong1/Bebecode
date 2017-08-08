@@ -63,6 +63,7 @@ public class DialogForAgree extends Dialog {
     String print_date = "initial";
     int date_count = 0;
     int image_on;
+    static int doImageUpdate = 0;
 
 
     public DialogForAgree(Context context , int _position , int _image_on) {
@@ -102,7 +103,7 @@ public class DialogForAgree extends Dialog {
         final ProgressBar progress1 , progress2;
         TextView m_answer, f_answer;
         Button image_upload;
-        ImageView imageView;
+        final ImageView imageView,listviewPicture;
         VideoView videoView;
 
         //android:id="@+id/dialog_comment_progress2"
@@ -117,6 +118,7 @@ public class DialogForAgree extends Dialog {
         image_upload = (Button) findViewById(R.id.img_upload_btn);
         videoView = (VideoView) findViewById(R.id.videoView);
         kakao_btn = (Button)findViewById(R.id.img_message_btn);
+        listviewPicture = (ImageView) findViewById(R.id.listviewPicture);
 
         progress1.setVisibility(ProgressBar.VISIBLE);
         dialog_title.setText(RecyclerAdapterHorizontal.items.get(position).getQuestion_number() +" : "+ RecyclerAdapterHorizontal.items.get(position).getQuestion());
@@ -211,11 +213,33 @@ public class DialogForAgree extends Dialog {
             }
         });
 
-        if(image_on==9){
-            image_upload.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image_upload,0,0,0);
-        }else{
+        if(image_on==3 || image_on== 4 || image_on==5){
             image_upload.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image_upload_new,0,0,0);
+            image_upload.setText("영상 확인");
+        }else {
+            image_upload.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image_upload,0,0,0);
+            image_upload.setText("영상 공유");
         }
+
+        listviewPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "업로드 할 이미지를 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                //intent.setType("video/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                for(int i=0 ; i< RecyclerAdapterHorizontal.items_all.size() ; i++){
+                    if(RecyclerAdapterHorizontal.items.get(position).getQuestion_id() == RecyclerAdapterHorizontal.items_all.get(i).getQuestion_id()){
+                        MainActivity.intent_childid = RecyclerAdapterHorizontal.items_all.get(i).getChildID();
+                        MainActivity.intent_position = i;
+                        MainActivity.relative_position = position;
+                        break;
+                    }
+                }
+                p_act.startActivityForResult(Intent.createChooser(intent, "Select Image"), 1);
+            }
+        });
 
         image_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,10 +267,11 @@ public class DialogForAgree extends Dialog {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(v.getContext(), "업로드 할 자료를 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), "업로드 할 영상을 선택해 주세요.", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.setType("image/* video/*");
+                        //intent.setType("image/* video/*");
+                        intent.setType("video/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
 
                         for(int i=0 ; i< RecyclerAdapterHorizontal.items_all.size() ; i++){
@@ -257,12 +282,12 @@ public class DialogForAgree extends Dialog {
                                 break;
                             }
                         }
-                        p_act.startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+                        p_act.startActivityForResult(Intent.createChooser(intent, "Select Video"), 1);
                         dialog.dismiss();
                     }
                 });
                 dialog.show();
-                new TaskImageLoading(position, img  , video, _pp , videoWrapper , getContext() ).execute();
+                new TaskImageLoading(position , video, _pp , videoWrapper , getContext() ).execute();
             }
         });
 
@@ -276,7 +301,6 @@ public class DialogForAgree extends Dialog {
             public void onClick(View v) {
                 String msg = input.getText().toString();
                 if (msg.length() > 0 ) {
-
                     String new_dialog = null;
                     Calendar time = Calendar.getInstance();
                     new_dialog = MainActivity.USERTYPE+" ("+(time.get(Calendar.YEAR))+ "/" +(time.get(Calendar.MONTH)+1) +"/" + time.get(Calendar.DAY_OF_MONTH) +" " +time.get(Calendar.HOUR_OF_DAY) +":"+ time.get(Calendar.MINUTE)+") " + msg;
@@ -295,7 +319,7 @@ public class DialogForAgree extends Dialog {
             @Override
             public void run() {
                 if(MainActivity.mCurrentPosition == 0 && learning == true && !running_one_task) {
-                    new TaskCommentLoading(RecyclerAdapterHorizontal.items.get(position).getChildID(), RecyclerAdapterHorizontal.items.get(position).getQuestion_number() , m_Adapter , progress1, m_ListView).execute();
+                    new TaskCommentLoading(getContext(), listviewPicture , RecyclerAdapterHorizontal.items.get(position).getChildID(), RecyclerAdapterHorizontal.items.get(position).getQuestion_number() , m_Adapter , progress1, m_ListView).execute();
                 }
             }
         };
@@ -312,13 +336,19 @@ public class DialogForAgree extends Dialog {
         ProgressBar pp;
         String result_comment;
         ListView listv;
+        boolean isImage;
+        Context context;
+        ImageView img;
 
-        public TaskCommentLoading (String _childid, String _question_number, ChatAdapter _dialog_comment, ProgressBar _pp, ListView _listv){
+        public TaskCommentLoading (Context _c, ImageView _i, String _childid, String _question_number, ChatAdapter _dialog_comment, ProgressBar _pp, ListView _listv){
             childid = _childid;
             question = _question_number.split(" ")[1];
             dialog_comment = _dialog_comment;
             pp = _pp;
             listv = _listv;
+            isImage = false;
+            context = _c;
+            img = _i;
         }
 
         @Override
@@ -338,6 +368,12 @@ public class DialogForAgree extends Dialog {
                 }
             };
             mThread.start();
+
+            if(RecyclerAdapterHorizontal.items.get(position).getPicture_source()>=0 && RecyclerAdapterHorizontal.items.get(position).getPicture_source() <=2) {  // image
+                isImage = true;
+            }
+
+
             try {
                 mThread.join();
             }catch (Exception e){
@@ -348,6 +384,15 @@ public class DialogForAgree extends Dialog {
         @Override
         protected void onPostExecute(String result) {
             String result_c = null;
+
+            if(isImage && doImageUpdate < 1) {
+                final String baseShoppingURL =  RecyclerAdapterHorizontal.uploadURL + RecyclerAdapterHorizontal.items.get(position).getSourceName();
+                Picasso.with(context).load(baseShoppingURL).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(img);
+                img.setVisibility(ImageView.VISIBLE);
+                doImageUpdate++;
+            }
+
+
             for(int i=1 ; i < result_comment.split("@@").length ; i++){
                 //Log.e("zz111",Integer.toString(i)+" "+Integer.toString(recent_chat_count) + " " +result_comment.split("@@").length);
                 if(i==1){
@@ -401,7 +446,6 @@ public class DialogForAgree extends Dialog {
 
     class TaskImageLoading extends AsyncTask<String, Integer, String> {
 
-        ImageView img;
         VideoView vv;
         ProgressBar pro;
         int position;
@@ -410,9 +454,8 @@ public class DialogForAgree extends Dialog {
         Context context;
         FrameLayout fl;
 
-        public TaskImageLoading(int _p, ImageView _img, VideoView _vv , ProgressBar _pp ,  FrameLayout _fl, Context _c){
+        public TaskImageLoading(int _p, VideoView _vv , ProgressBar _pp ,  FrameLayout _fl, Context _c){
             position = _p;
-            img = _img;
             pro = _pp;
             vv = _vv;
             context = _c;
@@ -432,33 +475,6 @@ public class DialogForAgree extends Dialog {
 
             if(RecyclerAdapterHorizontal.items.get(position).getPicture_source()>=0 && RecyclerAdapterHorizontal.items.get(position).getPicture_source() <=2) {  // image
                 isImage = true;
-                /*
-                final String baseShoppingURL =  RecyclerAdapterHorizontal.uploadURL + RecyclerAdapterHorizontal.items.get(position).getSourceName();
-                Thread mThread = new Thread(){
-                    @Override
-                    public void run(){
-                        try{
-                            URL url = new URL(baseShoppingURL);
-                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                            conn.setDoInput(true);
-                            conn.connect();
-                            InputStream is = conn.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(is);
-                            is.close();
-
-                        }catch(IOException ex){
-
-                        }
-                    }
-                };
-                mThread.start();
-                try{
-                    mThread.join();
-                }
-                catch (InterruptedException e){
-
-                }
-                */
             }
             else if(RecyclerAdapterHorizontal.items.get(position).getPicture_source()>=3 && RecyclerAdapterHorizontal.items.get(position).getPicture_source() <=5){  // video
                 isImage = false;
@@ -474,28 +490,25 @@ public class DialogForAgree extends Dialog {
 
 
             if(noData){
-                img.setVisibility(ImageView.VISIBLE);
+                //img.setVisibility(ImageView.VISIBLE);
                 vv.setVisibility(VideoView.GONE);
             }
             else if(isImage) {
-
                 final String baseShoppingURL =  RecyclerAdapterHorizontal.uploadURL + RecyclerAdapterHorizontal.items.get(position).getSourceName();
-                Picasso.with(context).load(baseShoppingURL).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(img);
+                //Picasso.with(context).load(baseShoppingURL).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(img);
 
-                img.setVisibility(ImageView.VISIBLE);
+                //img.setVisibility(ImageView.VISIBLE);
                 //img.setImageBitmap(bitmap);
-
                 vv.setVisibility(VideoView.GONE);
             }
             else{
                 String videourl = RecyclerAdapterHorizontal.uploadURL + RecyclerAdapterHorizontal.items.get(position).getSourceName();
                 Uri urr = Uri.parse(videourl);
                 vv.setVisibility(VideoView.VISIBLE);
-                img.setVisibility(ImageView.GONE);
+                //img.setVisibility(ImageView.GONE);
 
                 final MediaController controller = new MediaController(context);
                 vv.setVideoURI(urr);
-
                 vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mp) {

@@ -253,7 +253,6 @@ public class ProgressStatus extends Fragment {
         }
 
 
-        Log.e("zzzbirth_s",birth_s);
         int progressbar_max =  (((int)    Math.ceil((Integer.parseInt(birth_s.split("_")[1]) - Integer.parseInt(birth_s.split("_")[0])) * 30.416)))  ;
         int progressbar_progress =  ((int) Math.ceil((Integer.parseInt(birth_s.split("_")[1]) - Integer.parseInt(birth_s.split("_")[0])) * 30.416)) - Integer.parseInt(text_dday);
 

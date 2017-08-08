@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
-            android:text="▶ 이 문제에 관한 사진/영상을 배우자와 공유해 보세요."
+            android:text="▶ 이 문제에 관한 영상을 배우자와 공유해 보세요."
             />
     </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/no_image"
+            android:src="@drawable/no_video"
             android:scaleType="fitCenter" />
 
         <Button
@@ -58,7 +58,7 @@
             android:drawableLeft="@drawable/image_upload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="이미지/영상 업로드"/>
+            android:text="영상 업로드"/>
 
     </LinearLayout>
 

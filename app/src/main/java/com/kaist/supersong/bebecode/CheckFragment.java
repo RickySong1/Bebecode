@@ -530,7 +530,6 @@ public class CheckFragment extends Fragment {
             if(list_itemArrayList.size() > 1 ) {
                 month = list_itemArrayList.get(0).getMonth();
                 CHILD_MONTH = month;
-                Log.e("zz",month);
                 myMonthQuestion = fileM.getMonthQuestions(month);
                 isShortProblem = myMonthQuestion.isShortMonth();
                 _id = list_itemArrayList.get(0).getId();

@@ -119,6 +119,7 @@ public class InitialActivity extends Activity {
         if( uri == null ) {
             return null;
         }
+
         // 미디어스토어에서 유저가 선택한 사진의 URI를 받아온다.
         String[] projection = { MediaStore.Images.Media.DATA };
         //Cursor cursor = managedQuery(uri, projection, null, null, null);
@@ -258,11 +259,14 @@ public class InitialActivity extends Activity {
                 }
             }
             else if(get_msg.contains("VERSION")){
-                Toast.makeText(getApplicationContext() , "프로그램을 최신버젼으로 업데이트 해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext() , "프로그램을 최신버젼으로 업데이트 해주세요.", Toast.LENGTH_LONG).show();
+                Uri uri = Uri.parse("market://details?id=com.kaist.supersong.bebecode");
+                Intent intent = new Intent(Intent.ACTION_VIEW , uri);
+                startActivity(intent);
                 finish();
             }
             else {
-                Toast.makeText(getApplicationContext() , "Server is not running", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext() , "서버로 부터 응답이 없습니다. 잠시 후 다시 시도해주세요. 상황이 지속되면 관리자에게 문의해주세요.", Toast.LENGTH_LONG).show();
                 finish();
             }
 

@@ -1,5 +1,6 @@
 package mymanager;
 
+import android.os.Build;
 import android.util.Log;
 
 import com.kaist.supersong.bebecode.CheckFragment;
@@ -111,7 +112,7 @@ public class MySocketManager {
 
     public String serverPingTest(String version){
 
-        String send_message = "##UNKNOWN##UNKNOWN##PING_TEST##"+version+"##";
+        String send_message = "##UNKNOWN##UNKNOWN##PING_TEST##"+version+"##"+Build.VERSION.RELEASE+"##";
         String get_message = "Server is dead";
 
         int [][] result = null;

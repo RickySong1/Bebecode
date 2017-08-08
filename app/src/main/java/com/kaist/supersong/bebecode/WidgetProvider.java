@@ -449,9 +449,9 @@ public class WidgetProvider extends AppWidgetProvider {
             // ssw , null point error
             if (result_log !=null && result_log.contains("@@") && result_log.split("@@").length > 0 && result_log.split("@@")[1].split(" ").length > 3) {
                 views.setTextViewText(R.id.widget_yesterday_father, result_log.split("@@")[1].split(" ")[0]);
-                views.setTextViewText(R.id.widget_today_father, result_log.split("@@")[1].split(" ")[1]+" / 7");
+                views.setTextViewText(R.id.widget_today_father, result_log.split("@@")[1].split(" ")[1]+" / 8");
                 views.setTextViewText(R.id.widget_yesterday_mother, result_log.split("@@")[1].split(" ")[2]);
-                views.setTextViewText(R.id.widget_today_mother, result_log.split("@@")[1].split(" ")[3]+" / 7");
+                views.setTextViewText(R.id.widget_today_mother, result_log.split("@@")[1].split(" ")[3]+" / 8");
 
                 Calendar time = Calendar.getInstance();
                 String recent_update = (time.get(Calendar.MONTH)+1) +"/" + time.get(Calendar.DAY_OF_MONTH) +" " +time.get(Calendar.HOUR_OF_DAY) +":"+ time.get(Calendar.MINUTE);

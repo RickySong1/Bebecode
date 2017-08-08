@@ -158,6 +158,7 @@ public class RecyclerAdapterHorizontal extends RecyclerView.Adapter<RecyclerAdap
                     dialog = new DialogForAgree(context,position , items.get(position).getPicture_source() );
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.show();
+                    DialogForAgree.doImageUpdate = 0;
                     items.get(position).setNew_check(0);
                     holder.conflictImage.setImageResource(R.drawable.discussion);
                     socketM.openChat(items.get(0).getChildID(), position);
